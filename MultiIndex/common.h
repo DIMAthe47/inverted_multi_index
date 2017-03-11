@@ -1,0 +1,115 @@
+
+template <typename T>
+void print_matrix(T* matrix, int width, int height, char* format) {
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			printf(format, matrix[i*width + j]);
+		}
+		printf("\n");
+	}
+	printf("\n");
+}
+
+template <typename T>
+void print_matrix(T** matrix, int width, int height, char* format) {
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			printf(format, matrix[i][j]);
+		}
+		printf("\n");
+	}
+	printf("\n");
+}
+
+
+template <typename T>
+void print_array(T* arr, int width, char* format) {
+	for (int i = 0; i < width; i++) {
+		printf(format, arr[i]);
+	}
+	printf("\n");
+}
+
+template <typename T>
+T sum_array(const T* arr, int width) {
+	T sum = 0;
+	for (int i = 0; i < width; i++) {
+		sum += arr[i];
+	}
+	return sum;
+}
+
+
+template <typename T>
+T prod_array(const T* arr, int width) {
+	T prod = 1;
+	for (int i = 0; i < width; i++) {
+		prod =prod* arr[i];
+	}
+	return prod;
+}
+
+
+
+
+template <typename T>
+struct PriorityTuple
+{
+	float priority;
+	T value;
+};
+
+template <typename T>
+class ComparePriorityTuple
+{
+public:
+	bool operator() (PriorityTuple<T> t1, PriorityTuple<T> t2)
+	{
+		return t1.priority > t2.priority;
+	}
+};
+
+struct PriorityTuple2
+{
+	float priority;
+	int value1;
+	int value2;
+};
+
+
+class ComparePriorityTuple2
+{
+public:
+	bool operator() (const PriorityTuple2 t1, const PriorityTuple2 t2)
+	{
+		return t1.priority > t2.priority;
+	}
+};
+
+template <typename T>
+int copy_array(const T* from, T* to, const std::pair<int, int> slice_from, const int start_to, const int len_to) {
+	int from_len = slice_from.second - slice_from.first;
+	int copy_len = start_to + from_len < len_to ? from_len : len_to - start_to;
+
+	int p_from = slice_from.first;
+	int p_to = start_to;
+	int save_copy_len = copy_len;
+	while (copy_len > 0) {
+		to[p_to] = from[p_from];
+		p_from++;
+		p_to++;
+		copy_len--;
+	}
+
+	return save_copy_len;
+}
+
+template <typename T>
+int copy_array(const T* from, T* to, const int len) {
+	for(int i=0;i<len;i++){
+		to[i] = from[i];
+	}
+	return 0;
+}
+
+
