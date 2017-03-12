@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <queue>
 #include "common.h"
+#include "PriorityTuple.h"
 //using namespace std;
 
 

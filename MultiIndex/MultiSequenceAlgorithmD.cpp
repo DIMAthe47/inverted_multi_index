@@ -3,6 +3,7 @@
 #include <queue>
 #include <algorithm>    // std::copy
 #include "common.h"
+#include "PriorityTuple.h"
 #include <ctime>
 //using namespace std;
 
@@ -99,7 +100,6 @@ bool check_surrounding_cells_visited(const int* multi_index, const int n_dims, c
 	return surrounding_cells_visited;
 }
 
-//внутри изменяется multi_index и восстанавливается обратно
 bool check_for_push(bool *visited, const int* multi_index, const int n_dims, const int* multi_index_dim_length_array) {
 	bool should_push = true;
 
@@ -262,7 +262,7 @@ int main22() {
 	return 0;
 }
 
-int main() {
+int main33() {
 	float u_distaces[] = { 2.0, 0. };
 	float v_distaces[] = { 2.0, 0., 1.0 };
 	float z_distaces[] = { 2.0, 0. };

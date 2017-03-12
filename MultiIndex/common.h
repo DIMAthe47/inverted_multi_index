@@ -1,3 +1,6 @@
+#pragma once
+
+#include <utility>
 
 template <typename T>
 void print_matrix(T* matrix, int width, int height, char* format) {
@@ -21,7 +24,6 @@ void print_matrix(T** matrix, int width, int height, char* format) {
 	printf("\n");
 }
 
-
 template <typename T>
 void print_array(T* arr, int width, char* format) {
 	for (int i = 0; i < width; i++) {
@@ -39,52 +41,14 @@ T sum_array(const T* arr, int width) {
 	return sum;
 }
 
-
 template <typename T>
 T prod_array(const T* arr, int width) {
 	T prod = 1;
 	for (int i = 0; i < width; i++) {
-		prod =prod* arr[i];
+		prod = prod* arr[i];
 	}
 	return prod;
 }
-
-
-
-
-template <typename T>
-struct PriorityTuple
-{
-	float priority;
-	T value;
-};
-
-template <typename T>
-class ComparePriorityTuple
-{
-public:
-	bool operator() (PriorityTuple<T> t1, PriorityTuple<T> t2)
-	{
-		return t1.priority > t2.priority;
-	}
-};
-
-struct PriorityTuple2
-{
-	float priority;
-	int value1;
-	int value2;
-};
-
-
-class ComparePriorityTuple2
-{
-public:
-	bool operator() (const PriorityTuple2 t1, const PriorityTuple2 t2)
-	{
-		return t1.priority > t2.priority;
-	}
-};
 
 template <typename T>
 int copy_array(const T* from, T* to, const std::pair<int, int> slice_from, const int start_to, const int len_to) {
@@ -106,7 +70,7 @@ int copy_array(const T* from, T* to, const std::pair<int, int> slice_from, const
 
 template <typename T>
 int copy_array(const T* from, T* to, const int len) {
-	for(int i=0;i<len;i++){
+	for (int i = 0; i < len; i++) {
 		to[i] = from[i];
 	}
 	return 0;
