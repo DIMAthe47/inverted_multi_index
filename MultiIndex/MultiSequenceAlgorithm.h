@@ -103,7 +103,7 @@ public:
 	//идея передавать отсортированную матрицу расстояний?
 	//cluster_distance_matrix[n_subquantizers, n_clusters]
 	//nearest_cluster_index_matrix[n_subquantizers, n_clusters]
-	void find_and_write_candidates(const float *cluster_distance_matrix, const int* nearest_cluster_index_matrix, T* candidate_list, const int candidate_list_len) {
+	void find_and_write_candidates(const float *cluster_distance_matrix, const int* nearest_cluster_index_matrix, T* out_candidate_list, const int out_candidate_list_len) {
 		PREV_PRIORITY = -1;
 		int m = this->invertedMultiIndex->n_subquantizers;
 		int K = this->invertedMultiIndex->n_clusters;
@@ -130,8 +130,7 @@ public:
 		min_heap.push(start_element);
 		float PREV_PRIORITY = start_element.priority;
 
-		int* nearest_cluster_index_array = new int[m];
-		int total_candidates_to_take = candidate_list_len;
+		int total_candidates_to_take = out_candidate_list_len;
 		int candidates_taken = 0;
 		while (candidates_taken < total_candidates_to_take) {
 			PriorityTuple<int*> nearest = min_heap.top();
@@ -145,13 +144,13 @@ public:
 			CHECK_ALGORITHM_ITSELF(visited, flatindex, nearest.priority);
 
 			visited[flatindex] = true;
-			take_in_rows(nearest_cluster_index_matrix, K, nearest_cell_multiindex, nearest_cluster_index_array, m);
-			int pos_in_list_start_ndarray = multiIndexUtil.flat_index(nearest_cluster_index_array);
+			take_in_rows(nearest_cluster_index_matrix, K, nearest_cell_multiindex, _cluster_index_array, m);
+			int pos_in_list_start_ndarray = multiIndexUtil.flat_index(_cluster_index_array);
 			std::pair<int, int> list_slice = find_list_slice_for_entries(pos_in_list_start_ndarray);
-			int copy_len = copy_array<T>(invertedMultiIndex->entries, candidate_list, list_slice, candidates_taken, total_candidates_to_take);
+			int copy_len = copy_array<T>(invertedMultiIndex->entries, out_candidate_list, list_slice, candidates_taken, total_candidates_to_take);
 			candidates_taken += copy_len;
 			//printf("candidates: ");
-			//print_array(candidate_list, candidates_taken, "%d ");
+			//print_array(out_candidate_list, candidates_taken, "%d ");
 
 			for (int dim = m - 1; dim >= 0; dim--) {
 				int* next_cell_multi_index = new int[m];
@@ -160,8 +159,8 @@ public:
 
 				bool can_push = check_for_push(visited, next_cell_multi_index);
 				if (can_push) {
-					take_in_rows(nearest_cluster_index_matrix, K,  next_cell_multi_index, _cluster_index_array, m);
-					take_in_rows(cluster_distance_matrix,K,  _cluster_index_array, _distances_array, m);
+					take_in_rows(nearest_cluster_index_matrix, K, next_cell_multi_index, _cluster_index_array, m);
+					take_in_rows(cluster_distance_matrix, K, _cluster_index_array, _distances_array, m);
 					float next_cell_distance = sum_array(_distances_array, m);
 
 					PriorityTuple<int*> next_consider_cell = { next_cell_distance,next_cell_multi_index };
@@ -178,5 +177,14 @@ public:
 			delete[] nearest_cell_multiindex;
 		}
 
+		while (!min_heap.empty()) {
+			PriorityTuple<int*> cell_leftover = min_heap.top();
+			min_heap.pop();
+			delete[] cell_leftover.value;
+		}
+
+		delete[] _cluster_index_array;
+		delete[] _distances_array;
+		delete[] visited;
 	}
 };

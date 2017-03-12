@@ -18,7 +18,9 @@ int main() {
 		2,2,2,
 	};
 	InvertedMultiIndex<int>* invertedMultiIndex = build_InvertedMultiIndex(x, x_len, X_centroid_indices, 3, 3);
-	//InvertedMultiIndex<int> invertedMultiIndex= invertedMultiIndexBuilder.bui invertedMultiIndexBuilder..bu<int>().b	(x, x_len, X_centroid_indices, 3, 3);
+	MultiSequenceAlgorithm<int> multiSequenceAlgorithm(invertedMultiIndex);
+
+
 
 	delete invertedMultiIndex;
 
@@ -46,3 +48,4 @@ int main2() {
 	delete[] candidates;
 	return 0;
 }
+
