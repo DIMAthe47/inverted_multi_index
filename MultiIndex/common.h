@@ -25,7 +25,7 @@ void print_matrix(T** matrix, int width, int height, char* format) {
 }
 
 template <typename T>
-void print_array(T* arr, int width, char* format, bool print_index=true) {
+void print_array(T* arr, int width, char* format, bool print_index = true) {
 	for (int i = 0; i < width; i++) {
 		if (print_index)
 			printf("%d:", i);
@@ -78,4 +78,10 @@ int copy_array(const T* from, T* to, const int len) {
 	return 0;
 }
 
-
+template<typename T>
+void take_in_rows(const T* matrix, int matrix_width, const int* columns, T* target_array, const int target_array_len) {
+	for (int i = 0; i < target_array_len; i++) {
+		int column = columns[i];
+		target_array[i] = matrix[i*matrix_width + column];
+	}
+}

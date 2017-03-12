@@ -2,16 +2,13 @@
 #include "PriorityTuple.h"
 #include <queue>
 #include "MultiIndexUtil.h"
+#include "InvertedMultiIndex.h"
 
 template <class T>
 class MultiSequenceAlgorithm {
-	//suppose each codebook has n_clusters codewords
+	//suppose each codebook has invertedMultiIndex->n_clusters codewords
 private:
-	const int n_subquantizers;
-	const int n_clusters;
-	const int* list_start_ndarray;
-	const T* lists;
-	const int lists_len;
+	const InvertedMultiIndex<T>* invertedMultiIndex;
 	MultiIndexUtil multiIndexUtil;
 
 	float PREV_PRIORITY = -1;
@@ -32,20 +29,10 @@ private:
 		}
 	}
 
-	template<typename T>
-	void take_in_rows(const T* matrix, const int* columns, T* target_array, const int target_array_len) {
-		for (int i = 0; i < target_array_len; i++) {
-			int column = columns[i];
-			target_array[i] = matrix[i*n_clusters + column];
-		}
-	}
-
-	std::pair<int, int> find_list_sliceD(const int* list_start_ndarray, const int pos_in_list_start_ndarray) {
-		int list_start = list_start_ndarray[pos_in_list_start_ndarray];
-
-		int list_size;
-		int next_list_start = list_start_ndarray[pos_in_list_start_ndarray + 1];
-		list_size = next_list_start - list_start;
+	std::pair<int, int> find_list_slice_for_entries(const int pos_in_list_start_ndarray) {
+		int list_start = invertedMultiIndex->entries_list_starts[pos_in_list_start_ndarray];
+		int next_list_start = invertedMultiIndex->entries_list_starts[pos_in_list_start_ndarray + 1];
+		int list_size = next_list_start - list_start;
 
 		std::pair<int, int> list_slice(list_start, list_start + list_size);
 
@@ -53,8 +40,8 @@ private:
 	}
 
 	bool check_cell_out_of_bounds(const int* multi_index) {
-		for (int i = 0; i < n_subquantizers; i++) {
-			if (multi_index[i] >= this->n_clusters) {
+		for (int i = 0; i < invertedMultiIndex->n_subquantizers; i++) {
+			if (multi_index[i] >= this->invertedMultiIndex->n_clusters) {
 				return true;
 			}
 		}
@@ -62,14 +49,14 @@ private:
 	}
 
 	bool check_cell_already_visited(const int* multi_index, bool* visited) {
-		int flatindex =multiIndexUtil.flat_index(multi_index);
+		int flatindex = multiIndexUtil.flat_index(multi_index);
 		bool already_visited = visited[flatindex];
 		return already_visited;
 	}
 
-	bool check_surrounding_cells_visited(const int* multi_index,  bool* visited) {
+	bool check_surrounding_cells_visited(const int* multi_index, bool* visited) {
 		bool surrounding_cells_visited = true;
-		for (int i = 0; i < n_subquantizers; i++) {
+		for (int i = 0; i < invertedMultiIndex->n_subquantizers; i++) {
 			bool is_border = multi_index[i] == 0;
 			bool surrounding_cell_i_visited = is_border;
 			if (!is_border) {
@@ -106,16 +93,19 @@ private:
 	}
 
 public:
-	
-	MultiSequenceAlgorithm(const int n_subquantizers, const int n_clusters, const int* list_start_ndarray, const T* lists, const int lists_len) :
-		n_subquantizers(n_subquantizers), n_clusters(n_clusters), list_start_ndarray(list_start_ndarray),
-		lists(lists), lists_len(lists_len), multiIndexUtil(n_subquantizers, n_clusters) {
+
+	MultiSequenceAlgorithm(InvertedMultiIndex<T>* invertedMultiIndex) :
+		invertedMultiIndex(invertedMultiIndex),
+		multiIndexUtil(invertedMultiIndex->n_subquantizers, invertedMultiIndex->n_clusters) {
 	}
 
-	//иде€ передавать отсортированную матрицу рассто€ний
+	//иде€ передавать отсортированную матрицу рассто€ний?
+	//cluster_distance_matrix[n_subquantizers, n_clusters]
+	//nearest_cluster_index_matrix[n_subquantizers, n_clusters]
 	void find_and_write_candidates(const float *cluster_distance_matrix, const int* nearest_cluster_index_matrix, T* candidate_list, const int candidate_list_len) {
 		PREV_PRIORITY = -1;
-		int m = this->n_subquantizers;
+		int m = this->invertedMultiIndex->n_subquantizers;
+		int K = this->invertedMultiIndex->n_clusters;
 
 		int* _cluster_index_array = new int[m];
 		float* _distances_array = new float[m];
@@ -125,13 +115,13 @@ public:
 
 		int n_total_cells = 1;
 		for (int i = 0; i < m; i++) {
-			n_total_cells *= n_clusters;
+			n_total_cells *= K;
 		}
 		bool* visited = new bool[n_total_cells];
 		memset(visited, false, sizeof(bool)*n_total_cells);
 
-		take_in_rows(nearest_cluster_index_matrix, start_cell_multiindex, _cluster_index_array, m);
-		take_in_rows(cluster_distance_matrix, _cluster_index_array, _distances_array, m);
+		take_in_rows(nearest_cluster_index_matrix, K, start_cell_multiindex, _cluster_index_array, m);
+		take_in_rows(cluster_distance_matrix, K, _cluster_index_array, _distances_array, m);
 		float start_distance = sum_array(_distances_array, m);
 
 		std::priority_queue<PriorityTuple<int*>, std::vector<PriorityTuple<int*>>, ComparePriorityTuple<int*>> min_heap;
@@ -154,10 +144,10 @@ public:
 			CHECK_ALGORITHM_ITSELF(visited, flatindex, nearest.priority);
 
 			visited[flatindex] = true;
-			take_in_rows(nearest_cluster_index_matrix, nearest_cell_multiindex, nearest_cluster_index_array, m);
+			take_in_rows(nearest_cluster_index_matrix, K, nearest_cell_multiindex, nearest_cluster_index_array, m);
 			int pos_in_list_start_ndarray = multiIndexUtil.flat_index(nearest_cluster_index_array);
-			std::pair<int, int> list_slice = find_list_sliceD(list_start_ndarray, pos_in_list_start_ndarray);
-			int copy_len = copy_array<T>(lists, candidate_list, list_slice, candidates_taken, total_candidates_to_take);
+			std::pair<int, int> list_slice = find_list_slice_for_entries(pos_in_list_start_ndarray);
+			int copy_len = copy_array<T>(invertedMultiIndex->entries, candidate_list, list_slice, candidates_taken, total_candidates_to_take);
 			candidates_taken += copy_len;
 			//printf("candidates: ");
 			//print_array(candidate_list, candidates_taken, "%d ");
@@ -169,8 +159,8 @@ public:
 
 				bool can_push = check_for_push(visited, next_cell_multi_index);
 				if (can_push) {
-					take_in_rows(nearest_cluster_index_matrix, next_cell_multi_index, _cluster_index_array, m);
-					take_in_rows(cluster_distance_matrix, _cluster_index_array, _distances_array, m);
+					take_in_rows(nearest_cluster_index_matrix, K,  next_cell_multi_index, _cluster_index_array, m);
+					take_in_rows(cluster_distance_matrix,K,  _cluster_index_array, _distances_array, m);
 					float next_cell_distance = sum_array(_distances_array, m);
 
 					PriorityTuple<int*> next_consider_cell = { next_cell_distance,next_cell_multi_index };
@@ -199,9 +189,10 @@ int main44() {
 	//буфферный элемент в конце
 	int list_start_ndarray[] = { 0, 1, 2, 2, 4, 4, 6, 8,    10 };
 	int lists[] = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
-	int lists_len = 10;
 
-	MultiSequenceAlgorithm<int> msa(n_subquantizers, n_clusters, list_start_ndarray, lists, lists_len);
+	InvertedMultiIndex<int>* invertedMultiIndex = new InvertedMultiIndex<int>(lists, list_start_ndarray, n_subquantizers, n_clusters);
+
+	MultiSequenceAlgorithm<int> msa(invertedMultiIndex);
 
 	int* candidates = new int[10];
 	msa.find_and_write_candidates(cluster_distance_matrix, nearest_cluster_index_matrix, candidates, 10);
