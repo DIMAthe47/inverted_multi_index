@@ -1,6 +1,7 @@
 #include "common.h"
 #include "PriorityTuple.h"
 #include <queue>
+#include "MultiIndexUtil.h"
 
 template <class T>
 class MultiSequenceAlgorithm {
@@ -11,7 +12,7 @@ private:
 	const int* list_start_ndarray;
 	const T* lists;
 	const int lists_len;
-	int* flatindex_multipliers;
+	MultiIndexUtil multiIndexUtil;
 
 	float PREV_PRIORITY = -1;
 
@@ -51,21 +52,6 @@ private:
 		return list_slice;
 	}
 
-	int flat_index(const int* multi_index) {
-		int flatindex = 0;
-		for (int dim = 0; dim < n_subquantizers; dim++) {
-			flatindex += multi_index[dim] * flatindex_multipliers[dim];
-		}
-		return flatindex;
-	}
-
-	int flat_dim_offset(const int singular_dim) {
-		int dim_offset = flatindex_multipliers[singular_dim];
-		int flatindex = dim_offset;
-		return flatindex;
-	}
-
-
 	bool check_cell_out_of_bounds(const int* multi_index) {
 		for (int i = 0; i < n_subquantizers; i++) {
 			if (multi_index[i] >= this->n_clusters) {
@@ -76,7 +62,7 @@ private:
 	}
 
 	bool check_cell_already_visited(const int* multi_index, bool* visited) {
-		int flatindex = flat_index(multi_index);
+		int flatindex =multiIndexUtil.flat_index(multi_index);
 		bool already_visited = visited[flatindex];
 		return already_visited;
 	}
@@ -87,8 +73,8 @@ private:
 			bool is_border = multi_index[i] == 0;
 			bool surrounding_cell_i_visited = is_border;
 			if (!is_border) {
-				int flatindex = flat_index(multi_index);
-				int flatindex_inc = flat_dim_offset(i);
+				int flatindex = multiIndexUtil.flat_index(multi_index);
+				int flatindex_inc = multiIndexUtil.flat_dim_offset(i);
 				flatindex -= flatindex_inc;
 				surrounding_cell_i_visited = visited[flatindex];
 			}
@@ -123,13 +109,7 @@ public:
 	
 	MultiSequenceAlgorithm(const int n_subquantizers, const int n_clusters, const int* list_start_ndarray, const T* lists, const int lists_len) :
 		n_subquantizers(n_subquantizers), n_clusters(n_clusters), list_start_ndarray(list_start_ndarray),
-		lists(lists), lists_len(lists_len) {
-
-		flatindex_multipliers = new int[n_subquantizers];
-		flatindex_multipliers[n_subquantizers - 1] = 1;
-		for (int dim = n_subquantizers - 2; dim >= 0; dim--) {
-			flatindex_multipliers[dim] = flatindex_multipliers[dim + 1] * n_clusters;
-		}
+		lists(lists), lists_len(lists_len), multiIndexUtil(n_subquantizers, n_clusters) {
 	}
 
 	//идея передавать отсортированную матрицу расстояний
@@ -169,13 +149,13 @@ public:
 			//printf("popped: %f ", nearest.priority);
 			//print_multi_index(nearest_cell_multiindex, m);
 			//printf("\n");
-			int flatindex = flat_index(nearest_cell_multiindex);
+			int flatindex = multiIndexUtil.flat_index(nearest_cell_multiindex);
 
 			CHECK_ALGORITHM_ITSELF(visited, flatindex, nearest.priority);
 
 			visited[flatindex] = true;
 			take_in_rows(nearest_cluster_index_matrix, nearest_cell_multiindex, nearest_cluster_index_array, m);
-			int pos_in_list_start_ndarray = flat_index(nearest_cluster_index_array);
+			int pos_in_list_start_ndarray = multiIndexUtil.flat_index(nearest_cluster_index_array);
 			std::pair<int, int> list_slice = find_list_sliceD(list_start_ndarray, pos_in_list_start_ndarray);
 			int copy_len = copy_array<T>(lists, candidate_list, list_slice, candidates_taken, total_candidates_to_take);
 			candidates_taken += copy_len;
@@ -210,7 +190,7 @@ public:
 	}
 };
 
-int main() {
+int main44() {
 	const float* cluster_distance_matrix = new const float[6]{ 2.0, 0., 2.0, 0., 2.0, 0., };
 	const int* nearest_cluster_index_matrix = new const int[6]{ 1, 0,   1, 0,  1, 0, };
 	int n_subquantizers = 3;

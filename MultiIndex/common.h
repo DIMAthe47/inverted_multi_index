@@ -25,8 +25,10 @@ void print_matrix(T** matrix, int width, int height, char* format) {
 }
 
 template <typename T>
-void print_array(T* arr, int width, char* format) {
+void print_array(T* arr, int width, char* format, bool print_index=true) {
 	for (int i = 0; i < width; i++) {
+		if (print_index)
+			printf("%d:", i);
 		printf(format, arr[i]);
 	}
 	printf("\n");
