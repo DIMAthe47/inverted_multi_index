@@ -4,6 +4,7 @@
 #include <queue>
 #include "MultiIndexUtil.h"
 #include "InvertedMultiIndex.h"
+#include <exception>
 
 template <class T>
 class MultiSequenceAlgorithm {
@@ -16,7 +17,7 @@ private:
 
 	void CHECK_ALGORITHM_ITSELF(bool* visited, int flatindex, float popped_priority) {
 		if (visited[flatindex]) {
-			fprintf(stderr, "flatindex: %d", flatindex);
+			fprintf(stderr, "flatindex: %d ", flatindex);
 			perror("cell already visited. Error in implementation");
 
 			exit(1);
@@ -78,13 +79,12 @@ private:
 	bool check_for_push(bool *visited, const int* multi_index) {
 		bool should_push = true;
 
-		bool is_cell_already_visited = check_cell_already_visited(multi_index, visited);
-		should_push = !is_cell_already_visited;
-
-		if (!is_cell_already_visited) {
-			bool is_out_of_bounds = check_cell_out_of_bounds(multi_index);
-			should_push = !is_out_of_bounds;
-			if (!is_out_of_bounds) {
+		bool is_out_of_bounds = check_cell_out_of_bounds(multi_index);
+		should_push = !is_out_of_bounds;
+		if (should_push) {
+			bool is_cell_already_visited = check_cell_already_visited(multi_index, visited);
+			should_push = !is_cell_already_visited;
+			if (should_push) {
 				bool surrounding_cells_visited = check_surrounding_cells_visited(multi_index, visited);
 				should_push = surrounding_cells_visited;
 			}
@@ -100,13 +100,15 @@ public:
 		multiIndexUtil(invertedMultiIndex->n_subquantizers, invertedMultiIndex->n_clusters) {
 	}
 
-	//идея передавать отсортированную матрицу расстояний?
+	//идея передавать отсортированную матрицу расстояний для того, чтобы не передавать nearest_cluster_index_matrix - не получится. Нужны индексы исходные
 	//cluster_distance_matrix[n_subquantizers, n_clusters]
 	//nearest_cluster_index_matrix[n_subquantizers, n_clusters]
 	void find_and_write_candidates(const float *cluster_distance_matrix, const int* nearest_cluster_index_matrix, T* out_candidate_list, const int out_candidate_list_len) {
 		PREV_PRIORITY = -1;
 		int m = this->invertedMultiIndex->n_subquantizers;
 		int K = this->invertedMultiIndex->n_clusters;
+
+		//printf("find_and_write_candidates: m:%d K:%d\n", m, K);
 
 		int* _cluster_index_array = new int[m];
 		float* _distances_array = new float[m];
@@ -132,49 +134,65 @@ public:
 
 		int total_candidates_to_take = out_candidate_list_len;
 		int candidates_taken = 0;
-		while (candidates_taken < total_candidates_to_take) {
-			PriorityTuple<int*> nearest = min_heap.top();
-			min_heap.pop();
-			int* nearest_cell_multiindex = nearest.value;
-			//printf("popped: %f ", nearest.priority);
-			//print_multi_index(nearest_cell_multiindex, m);
-			//printf("\n");
-			int flatindex = multiIndexUtil.flat_index(nearest_cell_multiindex);
 
-			CHECK_ALGORITHM_ITSELF(visited, flatindex, nearest.priority);
-
-			visited[flatindex] = true;
-			take_in_rows(nearest_cluster_index_matrix, K, nearest_cell_multiindex, _cluster_index_array, m);
-			int pos_in_list_start_ndarray = multiIndexUtil.flat_index(_cluster_index_array);
-			std::pair<int, int> list_slice = find_list_slice_for_entries(pos_in_list_start_ndarray);
-			int copy_len = copy_array<T>(invertedMultiIndex->entries, out_candidate_list, list_slice, candidates_taken, total_candidates_to_take);
-			candidates_taken += copy_len;
-			//printf("candidates: ");
-			//print_array(out_candidate_list, candidates_taken, "%d ");
-
-			for (int dim = m - 1; dim >= 0; dim--) {
-				int* next_cell_multi_index = new int[m];
-				copy_array<int>(nearest_cell_multiindex, next_cell_multi_index, m);
-				next_cell_multi_index[dim] += 1;
-
-				bool can_push = check_for_push(visited, next_cell_multi_index);
-				if (can_push) {
-					take_in_rows(nearest_cluster_index_matrix, K, next_cell_multi_index, _cluster_index_array, m);
-					take_in_rows(cluster_distance_matrix, K, _cluster_index_array, _distances_array, m);
-					float next_cell_distance = sum_array(_distances_array, m);
-
-					PriorityTuple<int*> next_consider_cell = { next_cell_distance,next_cell_multi_index };
-					min_heap.push(next_consider_cell);
-
-					//printf("	push: %f ", next_consider_cell.priority);
-					//print_multi_index(next_consider_cell.value, m);
-					//printf("\n");
+		try {
+			while (candidates_taken < total_candidates_to_take) {
+				/*
+				if (min_heap.empty()) {
+					perror("min_heap is empty. Error in implementation");
+					exit(1);
 				}
-				else {
-					delete[] next_cell_multi_index;
+				*/
+				PriorityTuple<int*> nearest = min_heap.top();
+				min_heap.pop();
+				int* nearest_cell_multiindex = nearest.value;
+				//printf("popped: %f ", nearest.priority);
+				//print_multi_index(nearest_cell_multiindex, m);
+				//printf("\n");
+				int flatindex = multiIndexUtil.flat_index(nearest_cell_multiindex);
+
+				//CHECK_ALGORITHM_ITSELF(visited, flatindex, nearest.priority);
+
+				visited[flatindex] = true;
+				take_in_rows(nearest_cluster_index_matrix, K, nearest_cell_multiindex, _cluster_index_array, m);
+				int pos_in_list_start_ndarray = multiIndexUtil.flat_index(_cluster_index_array);
+				std::pair<int, int> list_slice = find_list_slice_for_entries(pos_in_list_start_ndarray);
+				int copy_len = copy_array<T>(invertedMultiIndex->entries, out_candidate_list, list_slice, candidates_taken, total_candidates_to_take);
+				candidates_taken += copy_len;
+				//printf("candidates_taken: %d", candidates_taken);
+				//printf("candidates: ");
+				//print_array(out_candidate_list, candidates_taken, "%d ");
+
+				for (int dim = m - 1; dim >= 0; dim--) {
+					int* next_cell_multi_index = new int[m];
+					copy_array<int>(nearest_cell_multiindex, next_cell_multi_index, m);
+					next_cell_multi_index[dim] += 1;
+
+					bool can_push = check_for_push(visited, next_cell_multi_index);
+					if (can_push) {
+						take_in_rows(nearest_cluster_index_matrix, K, next_cell_multi_index, _cluster_index_array, m);
+						take_in_rows(cluster_distance_matrix, K, _cluster_index_array, _distances_array, m);
+						float next_cell_distance = sum_array(_distances_array, m);
+
+						PriorityTuple<int*> next_consider_cell = { next_cell_distance,next_cell_multi_index };
+						min_heap.push(next_consider_cell);
+
+						//printf("	push: %f ", next_consider_cell.priority);
+						//print_multi_index(next_consider_cell.value, m);
+						//printf("\n");
+					}
+					else {
+						delete[] next_cell_multi_index;
+					}
 				}
+				delete[] nearest_cell_multiindex;
 			}
-			delete[] nearest_cell_multiindex;
+
+		}
+		catch (std::exception& e)
+		{
+			printf("%s\n", e.what());
+			exit(1);
 		}
 
 		while (!min_heap.empty()) {

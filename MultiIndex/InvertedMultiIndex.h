@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 template<class T>
 struct InvertedMultiIndex {
@@ -27,7 +28,11 @@ struct InvertedMultiIndex {
 
 template<class T>
 InvertedMultiIndex<T>* build_InvertedMultiIndex(T* x, int x_len, int* X_centroid_indices, int n_subquantizers, int n_clusters) {
+	//printf("C++ build_InvertedMultiIndex\n");
+	//printf("build_InvertedMultiIndex: %d %d %d\n", x_len, n_subquantizers, n_clusters);
+	//fflush(stdout);
 	MultiIndexUtil multiIndexUtil(n_subquantizers, n_clusters);
+	
 	int m = n_subquantizers;
 	int* _multi_index = new int[m];
 
@@ -45,13 +50,13 @@ InvertedMultiIndex<T>* build_InvertedMultiIndex(T* x, int x_len, int* X_centroid
 		int flatindex = multiIndexUtil.flat_index(_multi_index);
 		counts[flatindex]++;
 	}
-	print_array(counts, n_total_cells, "%d ");
+	//print_array(counts, n_total_cells, "%d ");
 
 
 	for (int i = 1; i < n_total_cells; i++) {
 		counts[i] = counts[i - 1] + counts[i];
 	}
-	print_array(counts, n_total_cells, "%d ");
+	//print_array(counts, n_total_cells, "%d ");
 
 	int* entries_list_ends = counts;
 	T* entries = new T[x_len];
@@ -66,10 +71,11 @@ InvertedMultiIndex<T>* build_InvertedMultiIndex(T* x, int x_len, int* X_centroid
 	int* entries_list_starts = entries_list_ends;
 	entries_list_starts[n_total_cells] = x_len;
 
-	print_array(entries, x_len, "%d ", false);
+	//print_array(entries, x_len, "%d ", false);
 
 	delete[] _multi_index;
 
 	InvertedMultiIndex<T>* invertedMultiIndex = new InvertedMultiIndex<T>(entries, entries_list_starts, n_subquantizers, n_clusters);
+
 	return invertedMultiIndex;
 }
