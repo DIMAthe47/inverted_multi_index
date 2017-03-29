@@ -1,6 +1,6 @@
 # distutils: language=c++
 import numpy as np
-import nearest_search3 as ns
+from search import nearest_search as ns
 # cimport numpy as np
 
 import sys
@@ -45,7 +45,7 @@ cdef class PyInvertedMultiIndexSearcher:
         cdef int m = self.n_subquantizers
         cdef X_centroid_index_matrix = np.empty((x_len, m, 1), dtype=np.int32)
 
-        nearestSearch = ns.NearestSearch3()
+        nearestSearch = ns.NearestSearch()
         # print(x.flags)
         # sys.stdout.flush()
         cdef float[:, :, :] X = x.reshape((x_len, m, self.n_dims), order='C')
@@ -68,10 +68,10 @@ cdef class PyInvertedMultiIndexSearcher:
         cdef cluster_distance_matrix = np.empty((len(Q), m, K), dtype=np.float32)
         cdef cluster_nearest_index_matrix = np.empty((len(Q), m, K), dtype=np.int32)
 
-        nearestSearch = ns.NearestSearch3()
+        nearestSearch = ns.NearestSearch()
         Q = Q.reshape((len(Q), m, self.n_dims))
         for i in range(m):
-            cluster_nearest_index_matrix[:, i, :], cluster_distance_matrix[:, i, :] = nearestSearch.find_nearest_indices(self.cluster_centers[i,:,:], Q[:,i,:], include_distances=True)
+            cluster_nearest_index_matrix[:, i, :], cluster_distance_matrix[:, i, :] = nearestSearch.find_nearest_indices(self.cluster_centers[i,:,:], Q[:,i,:], return_distances=True)
         return cluster_nearest_index_matrix, cluster_distance_matrix
 
 
