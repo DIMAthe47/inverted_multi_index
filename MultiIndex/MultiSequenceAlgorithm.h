@@ -1,4 +1,7 @@
-#pragma once
+#ifndef MULTISEQUENCEALGORITHM_H
+#define MULTISEQUENCEALGORITHM_H
+
+
 #include "common.h"
 #include "PriorityTuple.h"
 #include <queue>
@@ -100,7 +103,7 @@ public:
 		multiIndexUtil(invertedMultiIndex->n_subquantizers, invertedMultiIndex->n_clusters) {
 	}
 
-	//идея передавать отсортированную матрицу расстояний для того, чтобы не передавать nearest_cluster_index_matrix - не получится. Нужны индексы исходные
+	//пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ nearest_cluster_index_matrix - пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	//cluster_distance_matrix[n_subquantizers, n_clusters]
 	//nearest_cluster_index_matrix[n_subquantizers, n_clusters]
 	void find_and_write_candidates(const float *cluster_distance_matrix, const int* nearest_cluster_index_matrix, T* out_candidate_list, const int out_candidate_list_len) {
@@ -206,3 +209,5 @@ public:
 		delete[] visited;
 	}
 };
+
+#endif

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PRIORITYTUPLE_H
+#define PRIORITYTUPLE_H
+
 
 template <typename T>
 struct PriorityTuple
@@ -33,3 +35,4 @@ public:
 	}
 };
 
+#endif

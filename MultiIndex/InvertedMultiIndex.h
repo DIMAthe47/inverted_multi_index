@@ -1,5 +1,10 @@
-#pragma once
+#ifndef INVERTEDMULTIINDEX_H
+#define INVERTEDMULTIINDEX_H
+
 #include <iostream>
+#include <cstring>
+#include "MultiIndexUtil.h"
+#include "common.h"
 
 template<class T>
 struct InvertedMultiIndex {
@@ -79,3 +84,5 @@ InvertedMultiIndex<T>* build_InvertedMultiIndex(T* x, int x_len, int* X_centroid
 
 	return invertedMultiIndex;
 }
+
+#endif

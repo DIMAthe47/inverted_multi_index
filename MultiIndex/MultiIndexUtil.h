@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MULTIINDEXUTIL_H
+#define MULTIINDEXUTIL_H
 
 class MultiIndexUtil {
 private:
@@ -33,3 +34,5 @@ public:
 		delete[] flatindex_multipliers;
 	}
 };
+
+#endif

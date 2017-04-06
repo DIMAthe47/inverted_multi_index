@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COMMON_H
+#define COMMON_H
 
 #include <utility>
 
@@ -25,7 +26,7 @@ void print_matrix(T** matrix, int width, int height, char* format) {
 }
 
 template <typename T>
-void print_array(T* arr, int width, char* format, bool print_index = true) {
+void print_array(T* arr, int width, char const* format, bool print_index = true) {
 	for (int i = 0; i < width; i++) {
 		if (print_index)
 			printf("%d:", i);
@@ -85,3 +86,5 @@ void take_in_rows(const T* matrix, int matrix_width, const int* columns, T* targ
 		target_array[i] = matrix[i*matrix_width + column];
 	}
 }
+
+#endif
