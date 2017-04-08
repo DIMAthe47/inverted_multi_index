@@ -2,16 +2,19 @@
 #define MULTISEQUENCEALGORITHM_H
 
 
-#include "common.h"
-#include "PriorityTuple.h"
+#include "../util/array_utils.h"
+#include "../util/PriorityTuple.h"
 #include <queue>
 #include "MultiIndexUtil.h"
 #include "InvertedMultiIndex.h"
 #include <exception>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
 
 template <class T>
 class MultiSequenceAlgorithm {
-	//suppose each codebook has invertedMultiIndex->n_clusters codewords
+	//suppose each codebook has invertedMultiIndex->centroids_count_in_each_subspace codewords
 private:
 	const InvertedMultiIndex<T>* invertedMultiIndex;
 	MultiIndexUtil multiIndexUtil;
@@ -45,8 +48,8 @@ private:
 	}
 
 	bool check_cell_out_of_bounds(const int* multi_index) {
-		for (int i = 0; i < invertedMultiIndex->n_subquantizers; i++) {
-			if (multi_index[i] >= this->invertedMultiIndex->n_clusters) {
+		for (int i = 0; i < invertedMultiIndex->subspaces_count; i++) {
+			if (multi_index[i] >= this->invertedMultiIndex->centroids_count_in_each_subspace) {
 				return true;
 			}
 		}
@@ -61,7 +64,7 @@ private:
 
 	bool check_surrounding_cells_visited(const int* multi_index, bool* visited) {
 		bool surrounding_cells_visited = true;
-		for (int i = 0; i < invertedMultiIndex->n_subquantizers; i++) {
+		for (int i = 0; i < invertedMultiIndex->subspaces_count; i++) {
 			bool is_border = multi_index[i] == 0;
 			bool surrounding_cell_i_visited = is_border;
 			if (!is_border) {
@@ -100,16 +103,16 @@ public:
 
 	MultiSequenceAlgorithm(InvertedMultiIndex<T>* invertedMultiIndex) :
 		invertedMultiIndex(invertedMultiIndex),
-		multiIndexUtil(invertedMultiIndex->n_subquantizers, invertedMultiIndex->n_clusters) {
+		multiIndexUtil(invertedMultiIndex->subspaces_count, invertedMultiIndex->centroids_count_in_each_subspace) {
 	}
 
 	//���� ���������� ��������������� ������� ���������� ��� ����, ����� �� ���������� nearest_cluster_index_matrix - �� ���������. ����� ������� ��������
-	//cluster_distance_matrix[n_subquantizers, n_clusters]
-	//nearest_cluster_index_matrix[n_subquantizers, n_clusters]
+	//cluster_distance_matrix[subspaces_count, centroids_count_in_each_subspace]
+	//nearest_cluster_index_matrix[subspaces_count, centroids_count_in_each_subspace]
 	void find_and_write_candidates(const float *cluster_distance_matrix, const int* nearest_cluster_index_matrix, T* out_candidate_list, const int out_candidate_list_len) {
 		PREV_PRIORITY = -1;
-		int m = this->invertedMultiIndex->n_subquantizers;
-		int K = this->invertedMultiIndex->n_clusters;
+		int m = this->invertedMultiIndex->subspaces_count;
+		int K = this->invertedMultiIndex->centroids_count_in_each_subspace;
 
 		//printf("find_and_write_candidates: m:%d K:%d\n", m, K);
 
