@@ -6,7 +6,7 @@
 #include "../../src/search/NearestIndicesSearcher.h"
 
 
-TEST_CASE("find nearest indices by distances[3]", "[nearest]") {
+TEST_CASE("find nearest indices by distances[3]", "[nearest][NearestIndicesSearcher]") {
 
     const int max_n_nearest = 3;
     const NearestIndicesSearcher nearestIndicesSearcher(max_n_nearest);

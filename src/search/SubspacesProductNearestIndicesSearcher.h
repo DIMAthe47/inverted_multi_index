@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "NearestIndicesSearcher.h"
+#include "../util/SubspacedScalars.h"
 
 class SubspacesProductNearestIndicesSearcher {
 private:
@@ -20,16 +21,13 @@ public:
     }
 
     void
-    findNearestIndices(const float *subspace_distances, const size_t distances_count_in_each_subspace,
-                       int *out_subspace_nearest_indices,
-                       const size_t n_nearest_in_each_subspace) const {
+    findNearestIndices(const SubspacedScalars<float> &subspacedDistances, SubspacedScalars<int> &subspacedNearestIndices) const {
         for (size_t i = 0; i < subspaceNearestIndicesSearchers.size(); i++) {
-            size_t subspace_distances_from = i * distances_count_in_each_subspace;
-            size_t out_nearest_indices_from = i * n_nearest_in_each_subspace;
-            subspaceNearestIndicesSearchers[i].findNearestIndices(&subspace_distances[subspace_distances_from],
-                                                                  distances_count_in_each_subspace,
-                                                                  &out_subspace_nearest_indices[out_nearest_indices_from],
-                                                                  n_nearest_in_each_subspace);
+            subspaceNearestIndicesSearchers[i].findNearestIndices(subspacedDistances.getPointerToSubspace(i),
+                                                                  subspacedDistances.vectors_count_in_each_subspace,
+                                                                  subspacedNearestIndices.getPointerToSubspace(
+                                                                          i),
+                                                                  subspacedNearestIndices.vectors_count_in_each_subspace);
         }
     }
 

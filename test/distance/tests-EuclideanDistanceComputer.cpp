@@ -6,7 +6,7 @@
 #include "../../src/util/array_utils.h"
 
 
-TEST_CASE("compute distances from query_vector to base_vectors[3,4]", "[distance]") {
+TEST_CASE("compute distances from query_vector to base_vectors", "[EuclideanDistanceComputer][distance]") {
     const int base_vectors_count = 3;
     const int base_vectors_dim = 4;
     float base_vectors[base_vectors_count * base_vectors_dim] = {1, 2, 3, 4,

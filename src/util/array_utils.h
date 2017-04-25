@@ -1,8 +1,11 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include <cstdlib>
 #include <utility>
 #include <vector>
+#include <stdio.h>
+
 
 template<typename T>
 void print_matrix(T *matrix, int width, int height, char *format) {

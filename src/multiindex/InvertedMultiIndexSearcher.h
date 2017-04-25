@@ -16,39 +16,39 @@ private:
     MultiSequenceAlgorithm<IndexEntry> multiSequenceAlgorithm;
     SubspacesProductEuclideanDistanceComputer subspacesProductEuclideanDistanceComputer;
     SubspacesProductNearestIndicesSearcher subspacesProductNearestIndicesSearcher;
-    float *subspace_centroids_distances_matrix_;
-    int *nearest_subspace_cluster_indices_;
-    int centroids_count_in_each_subspace;
+    SubspacedScalars<float> *subspacedCentroidsDistances;
+    SubspacedScalars<int> *subspacedNearestIndices;
 
 public:
-    InvertedMultiIndexSearcher(InvertedMultiIndex<IndexEntry> *invertedMultiIndex, float *subspaces_centroids,
-                               size_t subspace_centroid_len) :
-            centroids_count_in_each_subspace(centroids_count_in_each_subspace),
+    InvertedMultiIndexSearcher(InvertedMultiIndex<IndexEntry> *invertedMultiIndex,
+                               SubspacedVectors<float> &subspacedCentroids) :
             multiSequenceAlgorithm(invertedMultiIndex),
-            subspacesProductEuclideanDistanceComputer(subspaces_centroids, subspaces_count, centroids_count_in_each_subspace,
-                                                      subspace_centroid_len),
-            subspacesProductNearestIndicesSearcher(invertedMultiIndex->entries_count, subspaces_count) {
+            subspacesProductEuclideanDistanceComputer(subspacedCentroids),
+            subspacesProductNearestIndicesSearcher(invertedMultiIndex->entries_count,
+                                                   invertedMultiIndex->subspaces_count),
+            subspacedCentroidsDistances(SubspacedScalars<float>::allocateOneDimSubspacedVectors(subspacedCentroids)),
+            subspacedNearestIndices(SubspacedScalars<int>::allocateOneDimSubspacedVectors(subspacedCentroids)) {
 
-        assert(invertedMultiIndex->subspaces_count == subspaces_count);
-        assert(invertedMultiIndex->centroids_count_in_each_subspace == centroids_count_in_each_subspace);
-
-        subspace_centroids_distances_matrix_ = new float[subspaces_count * centroids_count_in_each_subspace];
-        nearest_subspace_cluster_indices_ = new int[subspaces_count * centroids_count_in_each_subspace];
+        assert(invertedMultiIndex->subspaces_count == subspacedCentroids.subspaces_count);
+        assert(invertedMultiIndex->centroids_count_in_each_subspace ==
+               subspacedCentroids.vectors_count_in_each_subspace);
     }
 
     void findNearest(const float *query_vector, IndexEntry *out_nearest_entries, const int nearest_entries_count) {
-
-        subspacesProductEuclideanDistanceComputer.computeDistances(query_vector, subspace_centroids_distances_matrix_);
-        subspacesProductNearestIndicesSearcher.findNearestIndices(subspace_centroids_distances_matrix_,
-                                                                  centroids_count_in_each_subspace,
-                                                                  nearest_subspace_cluster_indices_,
-                                                                  centroids_count_in_each_subspace);
-        multiSequenceAlgorithm.find_and_write_candidates(subspace_centroids_distances_matrix_,
-                                                         nearest_subspace_cluster_indices_,
+        subspacesProductEuclideanDistanceComputer.computeDistances(query_vector,
+                                                                   subspacedCentroidsDistances->subspaced_vectors);
+        subspacesProductNearestIndicesSearcher.findNearestIndices(*subspacedCentroidsDistances,
+                                                                  *subspacedNearestIndices);
+        multiSequenceAlgorithm.find_and_write_candidates(subspacedCentroidsDistances->subspaced_vectors,
+                                                         subspacedNearestIndices->subspaced_vectors,
                                                          out_nearest_entries, nearest_entries_count);
 
     }
 
+    ~InvertedMultiIndexSearcher() {
+        delete subspacedCentroidsDistances;
+        delete subspacedNearestIndices;
+    }
 
 };
 

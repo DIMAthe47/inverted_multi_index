@@ -30,6 +30,14 @@ public:
         return flatindex;
     }
 
+    int total_elements() {
+        int total_elements_ = 1;
+        for (int i = 0; i < n_dims; i++) {
+            total_elements_ *= dim_size;
+        }
+        return total_elements_;
+    }
+
     ~MultiIndexUtil() {
         delete[] flatindex_multipliers;
     }

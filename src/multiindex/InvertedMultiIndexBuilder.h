@@ -5,15 +5,17 @@
 #ifndef INVERTEDMULTIINDEXBUILDER_H
 #define INVERTEDMULTIINDEXBUILDER_H
 
-
 #include <cstring>
 #include "InvertedMultiIndex.h"
 #include "../../src/multiindex/MultiIndexUtil.h"
 #include "../../src/util/array_utils.h"
-
+#include "../util/SubspacedVectors.h"
+#include "../util/SubspacedScalars.h"
+#include "../distance/SubspacesProductEuclideanDistanceComputer.h"
+#include "../search/SubspacesProductNearestIndicesSearcher.h"
+#include "../util/Vectors.h"
 
 class InvertedMultiIndexBuilder {
-
 public:
     template<class IndexEntry>
     static InvertedMultiIndex<IndexEntry> *
@@ -30,7 +32,6 @@ public:
         for (int i = 0; i < subspaces_count; i++) {
             n_total_cells *= centroids_count_in_each_subspace;
         }
-
         int *counts = new int[n_total_cells + 1];//+1 border cell
         memset(counts, 0, sizeof(int) * n_total_cells);
 
@@ -41,8 +42,6 @@ public:
             counts[flatindex]++;
         }
         //print_array(counts, n_total_cells, "%d ");
-
-
         for (int i = 1; i < n_total_cells; i++) {
             counts[i] = counts[i - 1] + counts[i];
         }
@@ -66,10 +65,45 @@ public:
         delete[] _multi_index;
 
         InvertedMultiIndex<IndexEntry> *invertedMultiIndex = new InvertedMultiIndex<IndexEntry>(entries,
-                                                                                                entries_list_starts,
+                                                                                                entries_list_starts,n_total_cells + 1,
                                                                                                 subspaces_count,
                                                                                                 centroids_count_in_each_subspace);
+        return invertedMultiIndex;
+    }
 
+
+    template<class IndexEntry>
+    static InvertedMultiIndex<IndexEntry> *
+    buildInvertedMultiIndex(IndexEntry *x, Vectors<float> xVectors, SubspacedVectors<float> subspacedCentroids) {
+        SubspacesProductEuclideanDistanceComputer subspacesProductEuclideanDistanceComputer(subspacedCentroids);
+        SubspacesProductNearestIndicesSearcher subspacesProductNearestIndicesSearcher(
+                subspacedCentroids.vectors_count_in_each_subspace, subspacedCentroids.subspaces_count);
+
+        SubspacedScalars<float> *subspacedCentroidsDistances(
+                SubspacedScalars<float>::allocateOneDimSubspacedVectors(subspacedCentroids));
+//        SubspacedScalars<int> *subspacedNearestIndices(
+//                SubspacedScalars<int>::allocateOneDimSubspacedVectors(subspacedCentroids));
+
+        int *X_centroid_indices = new int[xVectors.vectors_count * subspacedCentroids.subspaces_count];
+
+        SubspacedScalars<int> nearestIndices(subspacedCentroids.subspaces_count, 1);
+        for (int i = 0; i < xVectors.vectors_count; i++) {
+            SubspacedVector<float> vector(xVectors.getPointerToVector(i), subspacedCentroids.subspaces_count,
+                                          subspacedCentroids.subspace_vector_dim);
+            subspacesProductEuclideanDistanceComputer.computeDistances(vector,
+                                                                       *subspacedCentroidsDistances);
+
+            int row_offset = i * subspacedCentroids.subspaces_count;
+            nearestIndices.setSubspacedVectors(&X_centroid_indices[row_offset]);
+
+            subspacesProductNearestIndicesSearcher.findNearestIndices(*subspacedCentroidsDistances,
+                                                                      nearestIndices);
+        }
+
+        InvertedMultiIndex<IndexEntry> *invertedMultiIndex = buildInvertedMultiIndex(x, xVectors.vectors_count,
+                                                                                     X_centroid_indices,
+                                                                                     subspacedCentroids.subspaces_count,
+                                                                                     subspacedCentroids.vectors_count_in_each_subspace);
         return invertedMultiIndex;
     }
 };
