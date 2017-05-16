@@ -13,7 +13,8 @@ add_library(tests-main test/tests-main.cpp)
 target_link_libraries(tests-main Catch)
 
 add_library(openblas STATIC IMPORTED )
-set_target_properties(openblas PROPERTIES IMPORTED_LOCATION "C:/Users/Dima/Downloads/OpenBLAS-v0.2.19-Win64-int32/OpenBLAS-v0.2.19-Win64-int32/lib/libopenblas.a")
+set_target_properties(openblas PROPERTIES IMPORTED_LOCATION "C:/Users/Dima/Downloads/OpenBLAS-v0.2.19-Win64-int32/OpenBLAS-v0.2.19-Win64-int32/bin/libopenblas.dll")
+#set_target_properties(openblas PROPERTIES IMPORTED_LOCATION "C:/Users/Dima/Downloads/OpenBLAS-v0.2.19-Win64-int32/OpenBLAS-v0.2.19-Win64-int32/lib/libopenblas.a")
 
 
 #include_directories("/opt/OpenBLAS/include")

@@ -96,7 +96,24 @@ std::vector<T> array_to_vector(T *arr, const int n_element) {
     std::vector<T> vec(arr,
                        arr + n_element);
     return vec;
+}
 
+
+template<typename T>
+std::vector<T> array_to_vector(const T *arr, const int n_element) {
+    std::vector<T> vec(arr,
+                       arr + n_element);
+    return vec;
+}
+
+template<typename T>
+void c_delete(T *c_arr) {
+    delete[] c_arr;
+}
+
+template<typename T>
+void c_delete(const T *c_arr) {
+    delete[] c_arr;
 }
 
 #endif

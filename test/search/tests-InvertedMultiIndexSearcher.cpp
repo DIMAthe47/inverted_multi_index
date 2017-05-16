@@ -7,7 +7,7 @@
 
 TEST_CASE("find nearest indices by InvertedMultiIndex", "[nearest][InvertedMultiIndexSearcher]") {
     int vector_ids[] = {10, 20, 30, 40};
-    float *vectors_arr = new float[2 * 4 * 3]{
+    float *vectors_arr = new float[4 * 2 * 3]{
             0, 0, 0, 0, 0, 0,
             0, 0, 0, 1, 2, 3,
             1, 2, 3, 0, 0, 0,
@@ -25,10 +25,10 @@ TEST_CASE("find nearest indices by InvertedMultiIndex", "[nearest][InvertedMulti
     SubspacedVectors<float> subspacedCentroids(subspaced_centroids, subspaces_count, centroids_count_in_each_subspace,
                                                centroid_dim);
 
-    InvertedMultiIndex<int> *invertedMultiIndex = InvertedMultiIndexBuilder::buildInvertedMultiIndex(vector_ids,
+    InvertedMultiIndex<int>* invertedMultiIndex = InvertedMultiIndexBuilder<int>().buildInvertedMultiIndex(vector_ids,
                                                                                                      vectors,
                                                                                                      subspacedCentroids);
-    InvertedMultiIndexSearcher<int> imis(invertedMultiIndex, subspacedCentroids);
+    InvertedMultiIndexSearcher<int, float> imis(invertedMultiIndex, subspacedCentroids);
 
     int *nearest_entries = new int[4];
     SECTION("vector1") {
@@ -78,5 +78,6 @@ TEST_CASE("find nearest indices by InvertedMultiIndex", "[nearest][InvertedMulti
     }
 
 
-
+    delete[] subspaced_centroids;
+    delete invertedMultiIndex;
 }

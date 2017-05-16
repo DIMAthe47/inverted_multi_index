@@ -19,7 +19,7 @@ TEST_CASE("using SubspacedVectors compute subspace distances from query_vector t
     subspacedVectors.setSubspacedVectors(subspace_base_vectors);
 
 
-    SubspacesProductEuclideanDistanceComputer subspacesProductEuclideanDistanceComputer(subspacedVectors);
+    SubspacesProductEuclideanDistanceComputer<float> subspacesProductEuclideanDistanceComputer(subspacedVectors);
     const int distances_count_ = subspacedVectors.getTotalVectorsCount();
     std::vector<float> right_answer_vector = {5, 25, 61, 113,
                                               0, 25, 8, 8};

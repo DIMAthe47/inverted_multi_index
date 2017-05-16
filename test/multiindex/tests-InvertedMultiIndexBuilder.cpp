@@ -3,7 +3,7 @@
 //
 
 #include "catch.hpp"
-#include "../../src/multiindex/InvertedMultiIndex.h"
+#include "../../src/multiindex/invertedMultiIndex.h"
 #include "../../src/multiindex/InvertedMultiIndexBuilder.h"
 #include "../../src/util/array_utils.h"
 
@@ -26,11 +26,11 @@ TEST_CASE("build InvertedMultiIndex", "[multiindex][InvertedMultiIndex][Inverted
 
     const int subspaces_count = 3;
     const int centroids_count_in_each_subspace = 2;
-    InvertedMultiIndex<int> *invertedMultiIndex = InvertedMultiIndexBuilder::buildInvertedMultiIndex(vector_ids,
-                                                                                                     vector_ids_count,
-                                                                                                     vectors_centroid_indices,
-                                                                                                     subspaces_count,
-                                                                                                     centroids_count_in_each_subspace);
+    InvertedMultiIndex<int> *invertedMultiIndex = InvertedMultiIndexBuilder<int>().buildInvertedMultiIndex(vector_ids,
+                                                                                                           vector_ids_count,
+                                                                                                           vectors_centroid_indices,
+                                                                                                           subspaces_count,
+                                                                                                           centroids_count_in_each_subspace);
     REQUIRE(invertedMultiIndex->entries_count == vector_ids_count);
     REQUIRE(invertedMultiIndex->subspaces_count == subspaces_count);
     REQUIRE(invertedMultiIndex->centroids_count_in_each_subspace == centroids_count_in_each_subspace);
@@ -40,12 +40,11 @@ TEST_CASE("build InvertedMultiIndex", "[multiindex][InvertedMultiIndex][Inverted
 //                                                         centroids_count_in_each_subspace, "%d ", false);
 //    print_array(invertedMultiIndex->entries, invertedMultiIndex->entries_count, "%d ", false);
 
-    MultiIndexUtil multiIndexUtil(subspaces_count, centroids_count_in_each_subspace);
-    int cells_ = multiIndexUtil.total_elements();
-
-    std::vector<int> entries_list_starts_vector = array_to_vector(invertedMultiIndex->entries_list_starts,
-                                                                  cells_);
-    std::vector<int> right_entries_list_start_vector = {0, 5, 6, 7, 7, 8, 9, 9};
+    std::vector<int> entries_list_starts_vector(invertedMultiIndex->entries_list_starts,
+                                                invertedMultiIndex->entries_list_starts +
+                                                invertedMultiIndex->entries_list_starts_len
+    );
+    std::vector<int> right_entries_list_start_vector = {0, 5, 6, 7, 7, 8, 9, 9, 10};
     REQUIRE(entries_list_starts_vector == right_entries_list_start_vector);
 
     std::vector<int> entries = array_to_vector(invertedMultiIndex->entries,
@@ -76,9 +75,9 @@ TEST_CASE("build InvertedMultiIndex2", "[multiindex][InvertedMultiIndex][Inverte
     SubspacedVectors<float> subspacedCentroids(subspaced_centroids, subspaces_count, centroids_count_in_each_subspace,
                                                centroid_dim);
 
-    InvertedMultiIndex<int> *invertedMultiIndex = InvertedMultiIndexBuilder::buildInvertedMultiIndex(vector_ids,
-                                                                                                     vectors,
-                                                                                                     subspacedCentroids);
+    InvertedMultiIndex<int> *invertedMultiIndex = InvertedMultiIndexBuilder<int>().buildInvertedMultiIndex(vector_ids,
+                                                                                                           vectors,
+                                                                                                           subspacedCentroids);
 
     REQUIRE(invertedMultiIndex->entries_count == vector_ids_count);
     REQUIRE(invertedMultiIndex->subspaces_count == subspaces_count);
@@ -90,12 +89,18 @@ TEST_CASE("build InvertedMultiIndex2", "[multiindex][InvertedMultiIndex][Inverte
 
     std::vector<int> entries_list_starts_vector = array_to_vector(invertedMultiIndex->entries_list_starts,
                                                                   invertedMultiIndex->entries_list_starts_len);
+    //5^2 + 1
     std::vector<int> right_entries_list_start_vector = {0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4,
                                                         4, 4, 4, 4, 4};
+
     REQUIRE(entries_list_starts_vector == right_entries_list_start_vector);
 
     std::vector<int> entries = array_to_vector(invertedMultiIndex->entries,
                                                invertedMultiIndex->entries_count);
     std::vector<int> right_entries = {30, 40, 10, 20};
     REQUIRE(entries == right_entries);
+
+    delete[] subspaced_centroids;
+    delete[] invertedMultiIndex->entries_list_starts;
 }
+

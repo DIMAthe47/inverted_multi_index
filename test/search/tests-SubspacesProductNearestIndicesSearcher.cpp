@@ -11,7 +11,7 @@ TEST_CASE("find nearest subspace indices by distances[2, 3]", "[nearest][subspac
 
     const int max_n_nearest = 3;
     const int subspace_count = 2;
-    const SubspacesProductNearestIndicesSearcher subspacesProductNearestIndicesSearcher(max_n_nearest, subspace_count);
+    const SubspacesProductNearestIndicesSearcher<float> subspacesProductNearestIndicesSearcher(max_n_nearest, subspace_count);
 
     const int distances_count_in_each_subspace = 3;
     float subspace_distances[] = {1.2, 0, 5,

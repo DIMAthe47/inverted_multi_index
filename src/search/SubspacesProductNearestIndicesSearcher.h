@@ -9,9 +9,10 @@
 #include "NearestIndicesSearcher.h"
 #include "../util/SubspacedScalars.h"
 
+template<typename FLOAT>
 class SubspacesProductNearestIndicesSearcher {
 private:
-    std::vector<NearestIndicesSearcher> subspaceNearestIndicesSearchers;
+    std::vector<NearestIndicesSearcher<FLOAT>> subspaceNearestIndicesSearchers;
 public:
     SubspacesProductNearestIndicesSearcher(size_t max_n_nearest, size_t subspaces_count) {
         subspaceNearestIndicesSearchers.reserve(subspaces_count);
@@ -21,7 +22,7 @@ public:
     }
 
     void
-    findNearestIndices(const SubspacedScalars<float> &subspacedDistances, SubspacedScalars<int> &subspacedNearestIndices) const {
+    findNearestIndices(const SubspacedScalars<FLOAT> &subspacedDistances, SubspacedScalars<int> &subspacedNearestIndices) const {
         for (size_t i = 0; i < subspaceNearestIndicesSearchers.size(); i++) {
             subspaceNearestIndicesSearchers[i].findNearestIndices(subspacedDistances.getPointerToSubspace(i),
                                                                   subspacedDistances.vectors_count_in_each_subspace,

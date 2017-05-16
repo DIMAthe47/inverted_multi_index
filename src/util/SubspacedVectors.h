@@ -47,7 +47,7 @@ public:
         return components_count_in_subspace;
     }
 
-    T *getPointerToSubspace(int subspace_num) const {
+    T *getPointerToSubspace(size_t subspace_num) const {
         size_t subspace_vectors_from = subspace_num * getComponentsCountInSubspace();
         T *subspace_vectors = &subspaced_vectors[subspace_vectors_from];
         return subspace_vectors;

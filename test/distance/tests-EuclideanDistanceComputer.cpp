@@ -13,7 +13,7 @@ TEST_CASE("compute distances from query_vector to base_vectors", "[EuclideanDist
                                                                  3, 4, 0, 0,
                                                                  0, 0, 0, 0};
     float query[base_vectors_dim] = {1, 2, 4, 4};
-    EuclideanDistanceComputer euclideanDistanceComputer(base_vectors, 3, 4);
+    EuclideanDistanceComputer<float> euclideanDistanceComputer(base_vectors, 3, 4);
     const int distances_count = base_vectors_count;
     float distances[distances_count];
     euclideanDistanceComputer.computeDistances(query, &distances[0]);

@@ -12,17 +12,18 @@
 #include <algorithm>
 #include <vector>
 
+template<typename FLOAT>
 class SubspacesProductEuclideanDistanceComputer {
 private:
-    std::vector<EuclideanDistanceComputer> subspaceEuclideanDistanceComputers;
-    SubspacedVectors<float> subspacedVectors;
+    std::vector<EuclideanDistanceComputer<FLOAT>> subspaceEuclideanDistanceComputers;
+    SubspacedVectors<FLOAT> subspacedVectors;
 public:
 
-    SubspacesProductEuclideanDistanceComputer(SubspacedVectors<float> &subspacedVectors) :
+    SubspacesProductEuclideanDistanceComputer(SubspacedVectors<FLOAT> &subspacedVectors) :
             subspacedVectors(subspacedVectors) {
 
         subspaceEuclideanDistanceComputers.reserve(subspacedVectors.subspaces_count);
-        for (size_t i = 0; i < subspacedVectors.subspaces_count; i++) {
+        for (int i = 0; i < subspacedVectors.subspaces_count; i++) {
             subspaceEuclideanDistanceComputers.emplace_back(
                     subspacedVectors.getPointerToSubspace(i),
                     subspacedVectors.vectors_count_in_each_subspace, subspacedVectors.subspace_vector_dim);
@@ -34,7 +35,7 @@ public:
      * @param query_vector - like ndarray[subspaces_count, subspace_vector_dim]
      * @param out_subspace_distances_arr - like ndarray[subspaces_count, base_vectors_count_in_each_subspace]
      */
-    void computeDistances(const float *query_vector, float *out_subspace_distances_arr) const {
+    void computeDistances(const FLOAT *query_vector, FLOAT *out_subspace_distances_arr) const {
         for (size_t i = 0; i < subspaceEuclideanDistanceComputers.size(); i++) {
             size_t subspace_query_from = i * subspacedVectors.subspace_vector_dim;
             size_t out_subspace_distances_arr_from = i * subspacedVectors.vectors_count_in_each_subspace;
@@ -48,8 +49,8 @@ public:
      * @param subspacedQueryVector - like ndarray[subspaces_count, subspace_vector_dim]
      * @param subspacedDistances - like ndarray[subspaces_count, base_vectors_count_in_each_subspace]
      */
-    void computeDistances(const SubspacedVector<float> &subspacedQueryVector,
-                          const SubspacedScalars<float> &subspacedDistances) const {
+    void computeDistances(const SubspacedVector<FLOAT> &subspacedQueryVector,
+                          const SubspacedScalars<FLOAT> &subspacedDistances) const {
         for (size_t i = 0; i < subspaceEuclideanDistanceComputers.size(); i++) {
             subspaceEuclideanDistanceComputers[i].computeDistances(subspacedQueryVector.getPointerToSubspace(i),
                                                                    subspacedDistances.getPointerToSubspace(i));

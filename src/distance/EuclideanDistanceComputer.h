@@ -8,16 +8,17 @@
 #include "../util/cblas_wraps.h"
 #include <algorithm>
 
+template <typename FLOAT>
 class EuclideanDistanceComputer {
 private:
-    const float *base_vectors;
-    float *base_vectors_sqr_norms;
+    const FLOAT *base_vectors;
+    FLOAT *base_vectors_sqr_norms;
     int base_vectors_count;
     int base_vectors_dim;
 public:
-    EuclideanDistanceComputer(float *base_vectors, const int base_vectors_count,const int base_vectors_dim) : base_vectors(
+    EuclideanDistanceComputer(FLOAT *base_vectors, const int base_vectors_count,const int base_vectors_dim) : base_vectors(
             base_vectors), base_vectors_count(base_vectors_count), base_vectors_dim(base_vectors_dim) {
-        base_vectors_sqr_norms = new float[base_vectors_count];
+        base_vectors_sqr_norms = new FLOAT[base_vectors_count];
         sqr_euclidean_norms(base_vectors, base_vectors_count, base_vectors_dim, base_vectors_sqr_norms);
     }
 
@@ -26,8 +27,8 @@ public:
      * @param query_vector
      * @param out_distances - like ndarray[base_vectors_count]
      */
-    void computeDistances(const float *query_vector, float *out_distances) const {
-        float query_sqr_norm = sqr_euclidean_norm(query_vector, base_vectors_dim);
+    void computeDistances(const FLOAT *query_vector, FLOAT *out_distances) const {
+        FLOAT query_sqr_norm = sqr_euclidean_norm(query_vector, base_vectors_dim);
         std::fill(out_distances, out_distances + base_vectors_count, query_sqr_norm);
         saxpy(1.0, base_vectors_sqr_norms, base_vectors_count, out_distances);
         sgemv(-2.0, base_vectors, base_vectors_count, base_vectors_dim, 1, query_vector, out_distances);

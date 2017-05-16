@@ -23,10 +23,10 @@ TEST_CASE("run MultiSequenceAlgorithm", "[multiindex][InvertedMultiIndex][MultiS
     MultiIndexUtil multiIndexUtil(subspaces_count, centroids_count_in_each_subspace);
     int cells_ = multiIndexUtil.total_elements();
     int *list_entries_starts = new int[cells_ + 1]{0, 1, 2,
-                                                  2, 4, 4,
-                                                  6, 8, 10,
-                                                  10};// +1 border element = count of elements to store in index (count of ids)
-    int lists[] = {0, 10, 20, 30, 40, 50, 60, 70, 80, 90};
+                                                   2, 4, 4,
+                                                   6, 8, 10,
+                                                   10};// +1 border element = count of elements to store in index (count of ids)
+    int *lists = new int[10]{0, 10, 20, 30, 40, 50, 60, 70, 80, 90};
 
     InvertedMultiIndex<int> *invertedMultiIndex = new InvertedMultiIndex<int>(lists, list_entries_starts, cells_ + 1,
                                                                               subspaces_count,
@@ -43,6 +43,4 @@ TEST_CASE("run MultiSequenceAlgorithm", "[multiindex][InvertedMultiIndex][MultiS
 
 //    print_array(candidates, n_candidates, "%d ");
     delete[] candidates;
-
-    delete invertedMultiIndex;
 }

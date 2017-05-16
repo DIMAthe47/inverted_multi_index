@@ -9,7 +9,7 @@
 TEST_CASE("find nearest indices by distances[3]", "[nearest][NearestIndicesSearcher]") {
 
     const int max_n_nearest = 3;
-    const NearestIndicesSearcher nearestIndicesSearcher(max_n_nearest);
+    const NearestIndicesSearcher<float> nearestIndicesSearcher(max_n_nearest);
 
     const int distances_count = 3;
     const float distances[] = {1.2, 0, 5};
