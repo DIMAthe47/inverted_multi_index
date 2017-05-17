@@ -1,7 +1,7 @@
 cimport c_inverted_multi_index as cimi
 cimport numpy as cnp
 cimport cython
-from py_inverted_multi_index_common cimport IndexEntry, FLOAT
+from py_inverted_multi_index_common cimport IndexEntry, FLOAT, LONGLONG
 
 
 cdef class PyInvertedMultiIndex:
@@ -16,6 +16,9 @@ cdef class PyInvertedMultiIndexBuilder:
 cdef class PyInvertedMultiIndexSearcher:
     cdef cimi.InvertedMultiIndexSearcher[IndexEntry, FLOAT]* c_imi_searcher
     cdef PyInvertedMultiIndex py_imi #to hold ref => py_imi will not be destroyed
+
+cdef class PyMultiIndexUtil:
+    cdef cimi.MultiIndexUtil[LONGLONG]* c_multi_index_util
 
 cdef class _finalizer:
     cdef const void *_data

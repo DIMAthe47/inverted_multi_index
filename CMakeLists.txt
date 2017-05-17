@@ -50,7 +50,8 @@ add_executable(${PROJECT_NAME}-test
         test/search/tests-NearestIndicesSearcher.cpp
         test/search/tests-SubspacesProductNearestIndicesSearcher.cpp
         test/multiindex/tests-InvertedMultiIndexBuilder.cpp
-        test/multiindex/tests-MultiSequenceAlgorithm.cpp test/search/tests-InvertedMultiIndexSearcher.cpp )
+        test/multiindex/tests-MultiSequenceAlgorithm.cpp test/search/tests-InvertedMultiIndexSearcher.cpp
+        test/multiindex/tests-MultiIndexUtil.cpp)
 
 
 

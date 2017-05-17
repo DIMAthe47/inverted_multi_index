@@ -19,7 +19,7 @@ class MultiSequenceAlgorithm {
     //suppose each codebook has invertedMultiIndex->centroids_count_in_each_subspace codewords
 private:
     const InvertedMultiIndex<T> *invertedMultiIndex;
-    MultiIndexUtil multiIndexUtil;
+    MultiIndexUtil<long long> multiIndexUtil;
 
     float PREV_PRIORITY = -1;
 

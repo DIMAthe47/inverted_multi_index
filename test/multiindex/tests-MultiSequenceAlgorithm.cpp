@@ -20,7 +20,7 @@ TEST_CASE("run MultiSequenceAlgorithm", "[multiindex][InvertedMultiIndex][MultiS
     //(0,0), (1,0), (2,0), (0,2), (1,2), (2,2), (0,1), (1,1), (2,1)
     // 0-1,   2-4,   6-8,   2-2,   4-6,  10-10,  1-2    4-4    8-10
     // 0     20,30   60,70   -     40,50   -      10,    -     80,90
-    MultiIndexUtil multiIndexUtil(subspaces_count, centroids_count_in_each_subspace);
+    MultiIndexUtil<long long> multiIndexUtil(subspaces_count, centroids_count_in_each_subspace);
     int cells_ = multiIndexUtil.total_elements();
     int *list_entries_starts = new int[cells_ + 1]{0, 1, 2,
                                                    2, 4, 4,

@@ -1,5 +1,6 @@
 from libcpp cimport bool
 cimport cython
+from py_inverted_multi_index_common cimport LONGLONG
 
 cdef extern from "util/array_utils.h":
     cdef void c_delete(void* c_arr)
@@ -35,3 +36,9 @@ cdef extern from "multiindex/InvertedMultiIndexSearcher.h":
     cdef cppclass InvertedMultiIndexSearcher[IndexEntry, FLOAT]:
         InvertedMultiIndexSearcher(InvertedMultiIndex[IndexEntry]* invertedMultiIndex, SubspacedVectors[FLOAT] &subspacedCentroids)
         void findNearest(const FLOAT *query_vector, IndexEntry *out_nearest_entries, const int nearest_entries_count)
+
+cdef extern from "multiindex/MultiIndexUtil.h":
+    cdef cppclass MultiIndexUtil[LONGLONG]:
+          MultiIndexUtil(const int n_dims, const int dim_size)
+          long long flat_index(const int *multi_index)
+          long long* flat_indices(const int *multi_index, int multi_indices_len)
