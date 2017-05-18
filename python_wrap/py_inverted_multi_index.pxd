@@ -17,9 +17,6 @@ cdef class PyInvertedMultiIndexSearcher:
     cdef cimi.InvertedMultiIndexSearcher[IndexEntry, FLOAT]* c_imi_searcher
     cdef PyInvertedMultiIndex py_imi #to hold ref => py_imi will not be destroyed
 
-cdef class PyMultiIndexUtil:
-    cdef cimi.MultiIndexUtil[LONGLONG]* c_multi_index_util
-
 cdef class _finalizer:
     cdef const void *_data
 

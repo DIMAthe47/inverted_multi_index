@@ -25,16 +25,14 @@ public:
         return flatindex;
     }
 
-    T* flat_indices(const int *multi_indices, int multi_indices_len) {
-        T *flatindices = new T[multi_indices_len];
+    void flat_indices(const int *multi_indices, int multi_indices_len, T* flatindices_out) {
         for (int i = 0; i < multi_indices_len; i++) {
             T flatindex = 0;
             for (int dim = 0; dim < n_dims; dim++) {
                 flatindex += multi_indices[i * n_dims + dim] * flatindex_multipliers[dim];
             }
-            flatindices[i] = flatindex;
+            flatindices_out[i] = flatindex;
         }
-        return flatindices;
     }
 
     T flat_dim_offset(const int singular_dim) {

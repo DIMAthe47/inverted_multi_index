@@ -9,7 +9,6 @@
             "C:\\Users\\Dima\\GoogleDisk\\CLionProjects\\image_processing\\src\\multiindex\\InvertedMultiIndex.h",
             "C:\\Users\\Dima\\GoogleDisk\\CLionProjects\\image_processing\\src\\multiindex\\InvertedMultiIndexBuilder.h",
             "C:\\Users\\Dima\\GoogleDisk\\CLionProjects\\image_processing\\src\\multiindex\\InvertedMultiIndexSearcher.h",
-            "C:\\Users\\Dima\\GoogleDisk\\CLionProjects\\image_processing\\src\\multiindex\\MultiIndexUtil.h",
             "C:\\Users\\Dima\\GoogleDisk\\CLionProjects\\image_processing\\src\\util\\SubspacedVectors.h",
             "C:\\Users\\Dima\\GoogleDisk\\CLionProjects\\image_processing\\src\\util\\Vectors.h",
             "C:\\Users\\Dima\\GoogleDisk\\CLionProjects\\image_processing\\src\\util\\array_utils.h"
@@ -480,7 +479,6 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include "multiindex/InvertedMultiIndex.h"
 #include "multiindex/InvertedMultiIndexBuilder.h"
 #include "multiindex/InvertedMultiIndexSearcher.h"
-#include "multiindex/MultiIndexUtil.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -1045,7 +1043,6 @@ static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(do
 struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex;
 struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndexBuilder;
 struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndexSearcher;
-struct __pyx_obj_23py_inverted_multi_index_PyMultiIndexUtil;
 struct __pyx_obj_23py_inverted_multi_index__finalizer;
 struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
@@ -1132,19 +1129,6 @@ struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndexSearcher {
 
 /* "py_inverted_multi_index.pxd":20
  *     cdef PyInvertedMultiIndex py_imi #to hold ref => py_imi will not be destroyed
- * 
- * cdef class PyMultiIndexUtil:             # <<<<<<<<<<<<<<
- *     cdef cimi.MultiIndexUtil[LONGLONG]* c_multi_index_util
- * 
- */
-struct __pyx_obj_23py_inverted_multi_index_PyMultiIndexUtil {
-  PyObject_HEAD
-  MultiIndexUtil<__pyx_t_30py_inverted_multi_index_common_LONGLONG>  *c_multi_index_util;
-};
-
-
-/* "py_inverted_multi_index.pxd":23
- *     cdef cimi.MultiIndexUtil[LONGLONG]* c_multi_index_util
  * 
  * cdef class _finalizer:             # <<<<<<<<<<<<<<
  *     cdef const void *_data
@@ -1449,14 +1433,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
 /* ExtTypeTest.proto */
 static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
 
-/* PyObjectCallMethO.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
-#endif
-
-/* PyObjectCallOneArg.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
-
 /* PyThreadStateGet.proto */
 #if CYTHON_FAST_THREAD_STATE
 #define __Pyx_PyThreadState_declare  PyThreadState *__pyx_tstate;
@@ -1485,6 +1461,14 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 static void __Pyx_WriteUnraisable(const char *name, int clineno,
                                   int lineno, const char *filename,
                                   int full_traceback, int nogil);
+
+/* PyObjectCallMethO.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
+#endif
+
+/* PyObjectCallOneArg.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
 
 /* RaiseException.proto */
 static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
@@ -1788,13 +1772,6 @@ static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dc_nn_
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
-/* CIntToPy.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_PY_LONG_LONG(PY_LONG_LONG value);
-
-/* MemviewDtypeToObject.proto */
-static CYTHON_INLINE PyObject *__pyx_memview_get_nn___pyx_t_30py_inverted_multi_index_common_LONGLONG(const char *itemp);
-static CYTHON_INLINE int __pyx_memview_set_nn___pyx_t_30py_inverted_multi_index_common_LONGLONG(const char *itemp, PyObject *obj);
-
 /* MemviewDtypeToObject.proto */
 static CYTHON_INLINE PyObject *__pyx_memview_get_nn___pyx_t_30py_inverted_multi_index_common_IndexEntry(const char *itemp);
 static CYTHON_INLINE int __pyx_memview_set_nn___pyx_t_30py_inverted_multi_index_common_IndexEntry(const char *itemp, PyObject *obj);
@@ -1920,9 +1897,6 @@ struct __pyx_typeinfo_string {
 };
 static struct __pyx_typeinfo_string __Pyx_TypeInfoToFormat(__Pyx_TypeInfo *type);
 
-/* CIntFromPy.proto */
-static CYTHON_INLINE PY_LONG_LONG __Pyx_PyInt_As_PY_LONG_LONG(PyObject *);
-
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
@@ -1934,9 +1908,6 @@ static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
 
 /* ObjectToMemviewSlice.proto */
 static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dc_int(PyObject *);
-
-/* ObjectToMemviewSlice.proto */
-static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_30py_inverted_multi_index_common_LONGLONG(PyObject *);
 
 /* CheckBinaryVersion.proto */
 static int __Pyx_check_binary_version(void);
@@ -2018,7 +1989,6 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *, PyObjec
 static PyTypeObject *__pyx_ptype_23py_inverted_multi_index_PyInvertedMultiIndex = 0;
 static PyTypeObject *__pyx_ptype_23py_inverted_multi_index_PyInvertedMultiIndexBuilder = 0;
 static PyTypeObject *__pyx_ptype_23py_inverted_multi_index_PyInvertedMultiIndexSearcher = 0;
-static PyTypeObject *__pyx_ptype_23py_inverted_multi_index_PyMultiIndexUtil = 0;
 static PyTypeObject *__pyx_ptype_23py_inverted_multi_index__finalizer = 0;
 static PyTypeObject *__pyx_array_type = 0;
 static PyTypeObject *__pyx_MemviewEnum_type = 0;
@@ -2069,7 +2039,6 @@ static void __pyx_memoryview_refcount_objects_in_slice(char *, Py_ssize_t *, Py_
 static void __pyx_memoryview_slice_assign_scalar(__Pyx_memviewslice *, int, size_t, void *, int); /*proto*/
 static void __pyx_memoryview__slice_assign_scalar(char *, Py_ssize_t *, Py_ssize_t *, int, size_t, void *); /*proto*/
 static PyObject *__pyx_format_from_typeinfo(__Pyx_TypeInfo *); /*proto*/
-static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_30py_inverted_multi_index_common_LONGLONG = { "LONGLONG", NULL, sizeof(__pyx_t_30py_inverted_multi_index_common_LONGLONG), { 0 }, 0, IS_UNSIGNED(__pyx_t_30py_inverted_multi_index_common_LONGLONG) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_30py_inverted_multi_index_common_LONGLONG), 0 };
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_30py_inverted_multi_index_common_IndexEntry = { "IndexEntry", NULL, sizeof(__pyx_t_30py_inverted_multi_index_common_IndexEntry), { 0 }, 0, IS_UNSIGNED(__pyx_t_30py_inverted_multi_index_common_IndexEntry) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_30py_inverted_multi_index_common_IndexEntry), 0 };
 static __Pyx_TypeInfo __Pyx_TypeInfo_int = { "int", NULL, sizeof(int), { 0 }, 0, IS_UNSIGNED(int) ? 'U' : 'I', IS_UNSIGNED(int), 0 };
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_30py_inverted_multi_index_common_FLOAT = { "FLOAT", NULL, sizeof(__pyx_t_30py_inverted_multi_index_common_FLOAT), { 0 }, 0, 'R', 0, 0 };
@@ -2101,7 +2070,6 @@ static const char __pyx_k__26[] = "}";
 static const char __pyx_k__27[] = ",";
 static const char __pyx_k_obj[] = "obj";
 static const char __pyx_k_base[] = "base";
-static const char __pyx_k_copy[] = "copy";
 static const char __pyx_k_join[] = "join";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_mode[] = "mode";
@@ -2122,11 +2090,9 @@ static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_shape[] = "shape";
 static const char __pyx_k_start[] = "start";
-static const char __pyx_k_astype[] = "astype";
 static const char __pyx_k_encode[] = "encode";
 static const char __pyx_k_format[] = "format";
 static const char __pyx_k_import[] = "__import__";
-static const char __pyx_k_n_dims[] = "n_dims";
 static const char __pyx_k_name_2[] = "__name__";
 static const char __pyx_k_py_imi[] = "py_imi";
 static const char __pyx_k_struct[] = "struct";
@@ -2136,7 +2102,6 @@ static const char __pyx_k_entries[] = "entries";
 static const char __pyx_k_fortran[] = "fortran";
 static const char __pyx_k_memview[] = "memview";
 static const char __pyx_k_Ellipsis[] = "Ellipsis";
-static const char __pyx_k_dim_size[] = "dim_size";
 static const char __pyx_k_itemsize[] = "itemsize";
 static const char __pyx_k_xVectors[] = "xVectors";
 static const char __pyx_k_TypeError[] = "TypeError";
@@ -2216,7 +2181,6 @@ static PyObject *__pyx_kp_b__26;
 static PyObject *__pyx_kp_u__27;
 static PyObject *__pyx_n_s_allocate_buffer;
 static PyObject *__pyx_n_s_asarray;
-static PyObject *__pyx_n_s_astype;
 static PyObject *__pyx_n_s_base;
 static PyObject *__pyx_n_s_c;
 static PyObject *__pyx_n_u_c;
@@ -2224,8 +2188,6 @@ static PyObject *__pyx_n_s_centroids_count_in_each_subspace;
 static PyObject *__pyx_n_s_class;
 static PyObject *__pyx_kp_s_contiguous_and_direct;
 static PyObject *__pyx_kp_s_contiguous_and_indirect;
-static PyObject *__pyx_n_s_copy;
-static PyObject *__pyx_n_s_dim_size;
 static PyObject *__pyx_n_s_dtype_is_object;
 static PyObject *__pyx_n_s_empty;
 static PyObject *__pyx_n_s_encode;
@@ -2247,7 +2209,6 @@ static PyObject *__pyx_n_s_join;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_memview;
 static PyObject *__pyx_n_s_mode;
-static PyObject *__pyx_n_s_n_dims;
 static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_s_name_2;
 static PyObject *__pyx_kp_u_ndarray_is_not_C_contiguous;
@@ -2293,10 +2254,6 @@ static PyObject *__pyx_pf_23py_inverted_multi_index_20PyInvertedMultiIndex_32cen
 static PyObject *__pyx_pf_23py_inverted_multi_index_27PyInvertedMultiIndexBuilder_buildInvertedMultiIndex(CYTHON_UNUSED struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndexBuilder *__pyx_v_self, __Pyx_memviewslice __pyx_v_x, __Pyx_memviewslice __pyx_v_xVectors, __Pyx_memviewslice __pyx_v_subspacedCentroids); /* proto */
 static int __pyx_pf_23py_inverted_multi_index_28PyInvertedMultiIndexSearcher___cinit__(struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndexSearcher *__pyx_v_self, struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *__pyx_v_py_imi, __Pyx_memviewslice __pyx_v_subspaced_centroids); /* proto */
 static PyObject *__pyx_pf_23py_inverted_multi_index_28PyInvertedMultiIndexSearcher_2findNearest(struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndexSearcher *__pyx_v_self, __Pyx_memviewslice __pyx_v_query_vector, int __pyx_v_nearest_entries_count); /* proto */
-static int __pyx_pf_23py_inverted_multi_index_16PyMultiIndexUtil___cinit__(struct __pyx_obj_23py_inverted_multi_index_PyMultiIndexUtil *__pyx_v_self, PyObject *__pyx_v_n_dims, PyObject *__pyx_v_dim_size); /* proto */
-static PyObject *__pyx_pf_23py_inverted_multi_index_16PyMultiIndexUtil_2flat_index(struct __pyx_obj_23py_inverted_multi_index_PyMultiIndexUtil *__pyx_v_self, PyArrayObject *__pyx_v_multi_index); /* proto */
-static PyObject *__pyx_pf_23py_inverted_multi_index_16PyMultiIndexUtil_4flat_indices(struct __pyx_obj_23py_inverted_multi_index_PyMultiIndexUtil *__pyx_v_self, PyArrayObject *__pyx_v_multi_indices); /* proto */
-static void __pyx_pf_23py_inverted_multi_index_16PyMultiIndexUtil_6__dealloc__(struct __pyx_obj_23py_inverted_multi_index_PyMultiIndexUtil *__pyx_v_self); /* proto */
 static void __pyx_pf_23py_inverted_multi_index_10_finalizer___dealloc__(struct __pyx_obj_23py_inverted_multi_index__finalizer *__pyx_v_self); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
@@ -2335,7 +2292,6 @@ static PyObject *__pyx_pf_15View_dot_MemoryView_16_memoryviewslice_4base___get__
 static PyObject *__pyx_tp_new_23py_inverted_multi_index_PyInvertedMultiIndex(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_23py_inverted_multi_index_PyInvertedMultiIndexBuilder(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_23py_inverted_multi_index_PyInvertedMultiIndexSearcher(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_23py_inverted_multi_index_PyMultiIndexUtil(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_23py_inverted_multi_index__finalizer(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_array(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_Enum(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -3230,7 +3186,7 @@ static PyObject *__pyx_pf_23py_inverted_multi_index_28PyInvertedMultiIndexSearch
  *         self.c_imi_searcher.findNearest(&query_vector[0], &out_nearest_entries_view[0], nearest_entries_count)
  *         return out_nearest_entries             # <<<<<<<<<<<<<<
  * 
- * cdef class PyMultiIndexUtil:
+ * cdef class _finalizer:
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(((PyObject *)__pyx_v_out_nearest_entries));
@@ -3267,558 +3223,6 @@ static PyObject *__pyx_pf_23py_inverted_multi_index_28PyInvertedMultiIndexSearch
 
 /* "py_inverted_multi_index.pyx":48
  * 
- * cdef class PyMultiIndexUtil:
- *     def __cinit__(self, n_dims, dim_size):             # <<<<<<<<<<<<<<
- *         self.c_multi_index_util = new cimi.MultiIndexUtil[LONGLONG](n_dims, dim_size)
- * 
- */
-
-/* Python wrapper */
-static int __pyx_pw_23py_inverted_multi_index_16PyMultiIndexUtil_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_23py_inverted_multi_index_16PyMultiIndexUtil_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_n_dims = 0;
-  PyObject *__pyx_v_dim_size = 0;
-  int __pyx_r;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_n_dims,&__pyx_n_s_dim_size,0};
-    PyObject* values[2] = {0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
-      switch (pos_args) {
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = PyDict_Size(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_n_dims)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        case  1:
-        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_dim_size)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 2, 2, 1); __PYX_ERR(0, 48, __pyx_L3_error)
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 48, __pyx_L3_error)
-      }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-    }
-    __pyx_v_n_dims = values[0];
-    __pyx_v_dim_size = values[1];
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 48, __pyx_L3_error)
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("py_inverted_multi_index.PyMultiIndexUtil.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return -1;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_23py_inverted_multi_index_16PyMultiIndexUtil___cinit__(((struct __pyx_obj_23py_inverted_multi_index_PyMultiIndexUtil *)__pyx_v_self), __pyx_v_n_dims, __pyx_v_dim_size);
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static int __pyx_pf_23py_inverted_multi_index_16PyMultiIndexUtil___cinit__(struct __pyx_obj_23py_inverted_multi_index_PyMultiIndexUtil *__pyx_v_self, PyObject *__pyx_v_n_dims, PyObject *__pyx_v_dim_size) {
-  int __pyx_r;
-  __Pyx_RefNannyDeclarations
-  int __pyx_t_1;
-  int __pyx_t_2;
-  __Pyx_RefNannySetupContext("__cinit__", 0);
-
-  /* "py_inverted_multi_index.pyx":49
- * cdef class PyMultiIndexUtil:
- *     def __cinit__(self, n_dims, dim_size):
- *         self.c_multi_index_util = new cimi.MultiIndexUtil[LONGLONG](n_dims, dim_size)             # <<<<<<<<<<<<<<
- * 
- *     def flat_index(self, cnp.ndarray multi_index):
- */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_n_dims); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 49, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_dim_size); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 49, __pyx_L1_error)
-  __pyx_v_self->c_multi_index_util = new MultiIndexUtil<__pyx_t_30py_inverted_multi_index_common_LONGLONG> (__pyx_t_1, __pyx_t_2);
-
-  /* "py_inverted_multi_index.pyx":48
- * 
- * cdef class PyMultiIndexUtil:
- *     def __cinit__(self, n_dims, dim_size):             # <<<<<<<<<<<<<<
- *         self.c_multi_index_util = new cimi.MultiIndexUtil[LONGLONG](n_dims, dim_size)
- * 
- */
-
-  /* function exit code */
-  __pyx_r = 0;
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __Pyx_AddTraceback("py_inverted_multi_index.PyMultiIndexUtil.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = -1;
-  __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "py_inverted_multi_index.pyx":51
- *         self.c_multi_index_util = new cimi.MultiIndexUtil[LONGLONG](n_dims, dim_size)
- * 
- *     def flat_index(self, cnp.ndarray multi_index):             # <<<<<<<<<<<<<<
- *         multi_index = multi_index.astype(self.np.int32, copy=False)
- *         cdef int[::1] multi_index_view = multi_index
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_23py_inverted_multi_index_16PyMultiIndexUtil_3flat_index(PyObject *__pyx_v_self, PyObject *__pyx_v_multi_index); /*proto*/
-static PyObject *__pyx_pw_23py_inverted_multi_index_16PyMultiIndexUtil_3flat_index(PyObject *__pyx_v_self, PyObject *__pyx_v_multi_index) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("flat_index (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_multi_index), __pyx_ptype_5numpy_ndarray, 1, "multi_index", 0))) __PYX_ERR(0, 51, __pyx_L1_error)
-  __pyx_r = __pyx_pf_23py_inverted_multi_index_16PyMultiIndexUtil_2flat_index(((struct __pyx_obj_23py_inverted_multi_index_PyMultiIndexUtil *)__pyx_v_self), ((PyArrayObject *)__pyx_v_multi_index));
-
-  /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_23py_inverted_multi_index_16PyMultiIndexUtil_2flat_index(struct __pyx_obj_23py_inverted_multi_index_PyMultiIndexUtil *__pyx_v_self, PyArrayObject *__pyx_v_multi_index) {
-  __Pyx_memviewslice __pyx_v_multi_index_view = { 0, 0, { 0 }, { 0 }, { 0 } };
-  __pyx_t_30py_inverted_multi_index_common_LONGLONG __pyx_v_flatindex;
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  __Pyx_memviewslice __pyx_t_5 = { 0, 0, { 0 }, { 0 }, { 0 } };
-  Py_ssize_t __pyx_t_6;
-  int __pyx_t_7;
-  __Pyx_RefNannySetupContext("flat_index", 0);
-  __Pyx_INCREF((PyObject *)__pyx_v_multi_index);
-
-  /* "py_inverted_multi_index.pyx":52
- * 
- *     def flat_index(self, cnp.ndarray multi_index):
- *         multi_index = multi_index.astype(self.np.int32, copy=False)             # <<<<<<<<<<<<<<
- *         cdef int[::1] multi_index_view = multi_index
- *         cdef LONGLONG flatindex = self.c_multi_index_util.flat_index(&multi_index_view[0])
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_multi_index), __pyx_n_s_astype); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_int32); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 52, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3);
-  __pyx_t_3 = 0;
-  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 52, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_copy, Py_False) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 52, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 52, __pyx_L1_error)
-  __Pyx_DECREF_SET(__pyx_v_multi_index, ((PyArrayObject *)__pyx_t_4));
-  __pyx_t_4 = 0;
-
-  /* "py_inverted_multi_index.pyx":53
- *     def flat_index(self, cnp.ndarray multi_index):
- *         multi_index = multi_index.astype(self.np.int32, copy=False)
- *         cdef int[::1] multi_index_view = multi_index             # <<<<<<<<<<<<<<
- *         cdef LONGLONG flatindex = self.c_multi_index_util.flat_index(&multi_index_view[0])
- *         return flatindex
- */
-  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_dc_int(((PyObject *)__pyx_v_multi_index));
-  if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 53, __pyx_L1_error)
-  __pyx_v_multi_index_view = __pyx_t_5;
-  __pyx_t_5.memview = NULL;
-  __pyx_t_5.data = NULL;
-
-  /* "py_inverted_multi_index.pyx":54
- *         multi_index = multi_index.astype(self.np.int32, copy=False)
- *         cdef int[::1] multi_index_view = multi_index
- *         cdef LONGLONG flatindex = self.c_multi_index_util.flat_index(&multi_index_view[0])             # <<<<<<<<<<<<<<
- *         return flatindex
- * 
- */
-  __pyx_t_6 = 0;
-  __pyx_t_7 = -1;
-  if (__pyx_t_6 < 0) {
-    __pyx_t_6 += __pyx_v_multi_index_view.shape[0];
-    if (unlikely(__pyx_t_6 < 0)) __pyx_t_7 = 0;
-  } else if (unlikely(__pyx_t_6 >= __pyx_v_multi_index_view.shape[0])) __pyx_t_7 = 0;
-  if (unlikely(__pyx_t_7 != -1)) {
-    __Pyx_RaiseBufferIndexError(__pyx_t_7);
-    __PYX_ERR(0, 54, __pyx_L1_error)
-  }
-  __pyx_v_flatindex = __pyx_v_self->c_multi_index_util->flat_index((&(*((int *) ( /* dim=0 */ ((char *) (((int *) __pyx_v_multi_index_view.data) + __pyx_t_6)) )))));
-
-  /* "py_inverted_multi_index.pyx":55
- *         cdef int[::1] multi_index_view = multi_index
- *         cdef LONGLONG flatindex = self.c_multi_index_util.flat_index(&multi_index_view[0])
- *         return flatindex             # <<<<<<<<<<<<<<
- * 
- *     def flat_indices(self, cnp.ndarray multi_indices):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_flatindex); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 55, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_r = __pyx_t_4;
-  __pyx_t_4 = 0;
-  goto __pyx_L0;
-
-  /* "py_inverted_multi_index.pyx":51
- *         self.c_multi_index_util = new cimi.MultiIndexUtil[LONGLONG](n_dims, dim_size)
- * 
- *     def flat_index(self, cnp.ndarray multi_index):             # <<<<<<<<<<<<<<
- *         multi_index = multi_index.astype(self.np.int32, copy=False)
- *         cdef int[::1] multi_index_view = multi_index
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __PYX_XDEC_MEMVIEW(&__pyx_t_5, 1);
-  __Pyx_AddTraceback("py_inverted_multi_index.PyMultiIndexUtil.flat_index", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __PYX_XDEC_MEMVIEW(&__pyx_v_multi_index_view, 1);
-  __Pyx_XDECREF((PyObject *)__pyx_v_multi_index);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "py_inverted_multi_index.pyx":57
- *         return flatindex
- * 
- *     def flat_indices(self, cnp.ndarray multi_indices):             # <<<<<<<<<<<<<<
- *         multi_indices = multi_indices.astype(self.np.int32, copy=False)
- *         cdef int[::1] multi_indices_view = multi_indices
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_23py_inverted_multi_index_16PyMultiIndexUtil_5flat_indices(PyObject *__pyx_v_self, PyObject *__pyx_v_multi_indices); /*proto*/
-static PyObject *__pyx_pw_23py_inverted_multi_index_16PyMultiIndexUtil_5flat_indices(PyObject *__pyx_v_self, PyObject *__pyx_v_multi_indices) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("flat_indices (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_multi_indices), __pyx_ptype_5numpy_ndarray, 1, "multi_indices", 0))) __PYX_ERR(0, 57, __pyx_L1_error)
-  __pyx_r = __pyx_pf_23py_inverted_multi_index_16PyMultiIndexUtil_4flat_indices(((struct __pyx_obj_23py_inverted_multi_index_PyMultiIndexUtil *)__pyx_v_self), ((PyArrayObject *)__pyx_v_multi_indices));
-
-  /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_23py_inverted_multi_index_16PyMultiIndexUtil_4flat_indices(struct __pyx_obj_23py_inverted_multi_index_PyMultiIndexUtil *__pyx_v_self, PyArrayObject *__pyx_v_multi_indices) {
-  __Pyx_memviewslice __pyx_v_multi_indices_view = { 0, 0, { 0 }, { 0 }, { 0 } };
-  int __pyx_v_elems_len;
-  __pyx_t_30py_inverted_multi_index_common_LONGLONG *__pyx_v_flatindices;
-  __Pyx_memviewslice __pyx_v_flatindices_view = { 0, 0, { 0 }, { 0 }, { 0 } };
-  PyArrayObject *__pyx_v_flatindices_ = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  __Pyx_memviewslice __pyx_t_5 = { 0, 0, { 0 }, { 0 }, { 0 } };
-  Py_ssize_t __pyx_t_6;
-  int __pyx_t_7;
-  struct __pyx_array_obj *__pyx_t_8 = NULL;
-  __Pyx_memviewslice __pyx_t_9 = { 0, 0, { 0 }, { 0 }, { 0 } };
-  PyObject *__pyx_t_10 = NULL;
-  __Pyx_RefNannySetupContext("flat_indices", 0);
-  __Pyx_INCREF((PyObject *)__pyx_v_multi_indices);
-
-  /* "py_inverted_multi_index.pyx":58
- * 
- *     def flat_indices(self, cnp.ndarray multi_indices):
- *         multi_indices = multi_indices.astype(self.np.int32, copy=False)             # <<<<<<<<<<<<<<
- *         cdef int[::1] multi_indices_view = multi_indices
- * 
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_multi_indices), __pyx_n_s_astype); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_int32); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 58, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3);
-  __pyx_t_3 = 0;
-  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 58, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_copy, Py_False) < 0) __PYX_ERR(0, 58, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 58, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 58, __pyx_L1_error)
-  __Pyx_DECREF_SET(__pyx_v_multi_indices, ((PyArrayObject *)__pyx_t_4));
-  __pyx_t_4 = 0;
-
-  /* "py_inverted_multi_index.pyx":59
- *     def flat_indices(self, cnp.ndarray multi_indices):
- *         multi_indices = multi_indices.astype(self.np.int32, copy=False)
- *         cdef int[::1] multi_indices_view = multi_indices             # <<<<<<<<<<<<<<
- * 
- *         cdef int elems_len = multi_indices.shape[0]
- */
-  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_dc_int(((PyObject *)__pyx_v_multi_indices));
-  if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 59, __pyx_L1_error)
-  __pyx_v_multi_indices_view = __pyx_t_5;
-  __pyx_t_5.memview = NULL;
-  __pyx_t_5.data = NULL;
-
-  /* "py_inverted_multi_index.pyx":61
- *         cdef int[::1] multi_indices_view = multi_indices
- * 
- *         cdef int elems_len = multi_indices.shape[0]             # <<<<<<<<<<<<<<
- *         cdef LONGLONG* flatindices = self.c_multi_index_util.flat_indices(&multi_indices_view[0], elems_len)
- * 
- */
-  __pyx_v_elems_len = (__pyx_v_multi_indices->dimensions[0]);
-
-  /* "py_inverted_multi_index.pyx":62
- * 
- *         cdef int elems_len = multi_indices.shape[0]
- *         cdef LONGLONG* flatindices = self.c_multi_index_util.flat_indices(&multi_indices_view[0], elems_len)             # <<<<<<<<<<<<<<
- * 
- *         cdef LONGLONG[::1] flatindices_view = <LONGLONG[:elems_len]>flatindices
- */
-  __pyx_t_6 = 0;
-  __pyx_t_7 = -1;
-  if (__pyx_t_6 < 0) {
-    __pyx_t_6 += __pyx_v_multi_indices_view.shape[0];
-    if (unlikely(__pyx_t_6 < 0)) __pyx_t_7 = 0;
-  } else if (unlikely(__pyx_t_6 >= __pyx_v_multi_indices_view.shape[0])) __pyx_t_7 = 0;
-  if (unlikely(__pyx_t_7 != -1)) {
-    __Pyx_RaiseBufferIndexError(__pyx_t_7);
-    __PYX_ERR(0, 62, __pyx_L1_error)
-  }
-  __pyx_v_flatindices = __pyx_v_self->c_multi_index_util->flat_indices((&(*((int *) ( /* dim=0 */ ((char *) (((int *) __pyx_v_multi_indices_view.data) + __pyx_t_6)) )))), __pyx_v_elems_len);
-
-  /* "py_inverted_multi_index.pyx":64
- *         cdef LONGLONG* flatindices = self.c_multi_index_util.flat_indices(&multi_indices_view[0], elems_len)
- * 
- *         cdef LONGLONG[::1] flatindices_view = <LONGLONG[:elems_len]>flatindices             # <<<<<<<<<<<<<<
- *         cdef cnp.ndarray flatindices_ = np.asarray(flatindices_view)
- *         set_base(flatindices_, flatindices)
- */
-  if (!__pyx_v_flatindices) {
-    PyErr_SetString(PyExc_ValueError,"Cannot create cython.array from NULL pointer");
-    __PYX_ERR(0, 64, __pyx_L1_error)
-  }
-  __pyx_t_3 = __pyx_format_from_typeinfo(&__Pyx_TypeInfo_nn___pyx_t_30py_inverted_multi_index_common_LONGLONG);
-  __pyx_t_4 = Py_BuildValue((char*) "("  __PYX_BUILD_PY_SSIZE_T  ")", ((Py_ssize_t)__pyx_v_elems_len));
-  if (unlikely(!__pyx_t_3 || !__pyx_t_4 || !PyBytes_AsString(__pyx_t_3))) __PYX_ERR(0, 64, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_8 = __pyx_array_new(__pyx_t_4, sizeof(__pyx_t_30py_inverted_multi_index_common_LONGLONG), PyBytes_AS_STRING(__pyx_t_3), (char *) "c", (char *) __pyx_v_flatindices);
-  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 64, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_9 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_30py_inverted_multi_index_common_LONGLONG(((PyObject *)__pyx_t_8));
-  if (unlikely(!__pyx_t_9.memview)) __PYX_ERR(0, 64, __pyx_L1_error)
-  __Pyx_DECREF(((PyObject *)__pyx_t_8)); __pyx_t_8 = 0;
-  __pyx_v_flatindices_view = __pyx_t_9;
-  __pyx_t_9.memview = NULL;
-  __pyx_t_9.data = NULL;
-
-  /* "py_inverted_multi_index.pyx":65
- * 
- *         cdef LONGLONG[::1] flatindices_view = <LONGLONG[:elems_len]>flatindices
- *         cdef cnp.ndarray flatindices_ = np.asarray(flatindices_view)             # <<<<<<<<<<<<<<
- *         set_base(flatindices_, flatindices)
- * 
- */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 65, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_asarray); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 65, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_v_flatindices_view, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_30py_inverted_multi_index_common_LONGLONG, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_30py_inverted_multi_index_common_LONGLONG, 0);; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 65, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_1)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_1);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
-    }
-  }
-  if (!__pyx_t_1) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_GOTREF(__pyx_t_3);
-  } else {
-    #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_2)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_4};
-      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    } else
-    #endif
-    #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_4};
-      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    } else
-    #endif
-    {
-      __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 65, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_10);
-      __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_1); __pyx_t_1 = NULL;
-      __Pyx_GIVEREF(__pyx_t_4);
-      PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_t_4);
-      __pyx_t_4 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_10, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    }
-  }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 65, __pyx_L1_error)
-  __pyx_v_flatindices_ = ((PyArrayObject *)__pyx_t_3);
-  __pyx_t_3 = 0;
-
-  /* "py_inverted_multi_index.pyx":66
- *         cdef LONGLONG[::1] flatindices_view = <LONGLONG[:elems_len]>flatindices
- *         cdef cnp.ndarray flatindices_ = np.asarray(flatindices_view)
- *         set_base(flatindices_, flatindices)             # <<<<<<<<<<<<<<
- * 
- *         return flatindices_
- */
-  __pyx_f_23py_inverted_multi_index_set_base(__pyx_v_flatindices_, __pyx_v_flatindices);
-
-  /* "py_inverted_multi_index.pyx":68
- *         set_base(flatindices_, flatindices)
- * 
- *         return flatindices_             # <<<<<<<<<<<<<<
- * 
- *     def __dealloc__(self):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_flatindices_));
-  __pyx_r = ((PyObject *)__pyx_v_flatindices_);
-  goto __pyx_L0;
-
-  /* "py_inverted_multi_index.pyx":57
- *         return flatindex
- * 
- *     def flat_indices(self, cnp.ndarray multi_indices):             # <<<<<<<<<<<<<<
- *         multi_indices = multi_indices.astype(self.np.int32, copy=False)
- *         cdef int[::1] multi_indices_view = multi_indices
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __PYX_XDEC_MEMVIEW(&__pyx_t_5, 1);
-  __Pyx_XDECREF(((PyObject *)__pyx_t_8));
-  __PYX_XDEC_MEMVIEW(&__pyx_t_9, 1);
-  __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_AddTraceback("py_inverted_multi_index.PyMultiIndexUtil.flat_indices", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __PYX_XDEC_MEMVIEW(&__pyx_v_multi_indices_view, 1);
-  __PYX_XDEC_MEMVIEW(&__pyx_v_flatindices_view, 1);
-  __Pyx_XDECREF((PyObject *)__pyx_v_flatindices_);
-  __Pyx_XDECREF((PyObject *)__pyx_v_multi_indices);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "py_inverted_multi_index.pyx":70
- *         return flatindices_
- * 
- *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         del self.c_multi_index_util
- * 
- */
-
-/* Python wrapper */
-static void __pyx_pw_23py_inverted_multi_index_16PyMultiIndexUtil_7__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_23py_inverted_multi_index_16PyMultiIndexUtil_7__dealloc__(PyObject *__pyx_v_self) {
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_23py_inverted_multi_index_16PyMultiIndexUtil_6__dealloc__(((struct __pyx_obj_23py_inverted_multi_index_PyMultiIndexUtil *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-}
-
-static void __pyx_pf_23py_inverted_multi_index_16PyMultiIndexUtil_6__dealloc__(struct __pyx_obj_23py_inverted_multi_index_PyMultiIndexUtil *__pyx_v_self) {
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__dealloc__", 0);
-
-  /* "py_inverted_multi_index.pyx":71
- * 
- *     def __dealloc__(self):
- *         del self.c_multi_index_util             # <<<<<<<<<<<<<<
- * 
- * cdef class _finalizer:
- */
-  delete __pyx_v_self->c_multi_index_util;
-
-  /* "py_inverted_multi_index.pyx":70
- *         return flatindices_
- * 
- *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         del self.c_multi_index_util
- * 
- */
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-}
-
-/* "py_inverted_multi_index.pyx":74
- * 
  * cdef class _finalizer:
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         cimi.c_delete(self._data)
@@ -3840,7 +3244,7 @@ static void __pyx_pf_23py_inverted_multi_index_10_finalizer___dealloc__(struct _
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "py_inverted_multi_index.pyx":75
+  /* "py_inverted_multi_index.pyx":49
  * cdef class _finalizer:
  *     def __dealloc__(self):
  *         cimi.c_delete(self._data)             # <<<<<<<<<<<<<<
@@ -3849,7 +3253,7 @@ static void __pyx_pf_23py_inverted_multi_index_10_finalizer___dealloc__(struct _
  */
   c_delete(__pyx_v_self->_data);
 
-  /* "py_inverted_multi_index.pyx":74
+  /* "py_inverted_multi_index.pyx":48
  * 
  * cdef class _finalizer:
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -3861,7 +3265,7 @@ static void __pyx_pf_23py_inverted_multi_index_10_finalizer___dealloc__(struct _
   __Pyx_RefNannyFinishContext();
 }
 
-/* "py_inverted_multi_index.pyx":77
+/* "py_inverted_multi_index.pyx":51
  *         cimi.c_delete(self._data)
  * 
  * cdef void set_base(cnp.ndarray arr, const void* c_arr):             # <<<<<<<<<<<<<<
@@ -3875,19 +3279,19 @@ static void __pyx_f_23py_inverted_multi_index_set_base(PyArrayObject *__pyx_v_ar
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("set_base", 0);
 
-  /* "py_inverted_multi_index.pyx":78
+  /* "py_inverted_multi_index.pyx":52
  * 
  * cdef void set_base(cnp.ndarray arr, const void* c_arr):
  *     cdef _finalizer f=_finalizer()             # <<<<<<<<<<<<<<
  *     f._data=<const void*>c_arr
  *     cnp.set_array_base(arr, f)
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_23py_inverted_multi_index__finalizer), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_23py_inverted_multi_index__finalizer), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_f = ((struct __pyx_obj_23py_inverted_multi_index__finalizer *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "py_inverted_multi_index.pyx":79
+  /* "py_inverted_multi_index.pyx":53
  * cdef void set_base(cnp.ndarray arr, const void* c_arr):
  *     cdef _finalizer f=_finalizer()
  *     f._data=<const void*>c_arr             # <<<<<<<<<<<<<<
@@ -3896,7 +3300,7 @@ static void __pyx_f_23py_inverted_multi_index_set_base(PyArrayObject *__pyx_v_ar
  */
   __pyx_v_f->_data = ((void const *)__pyx_v_c_arr);
 
-  /* "py_inverted_multi_index.pyx":80
+  /* "py_inverted_multi_index.pyx":54
  *     cdef _finalizer f=_finalizer()
  *     f._data=<const void*>c_arr
  *     cnp.set_array_base(arr, f)             # <<<<<<<<<<<<<<
@@ -3905,7 +3309,7 @@ static void __pyx_f_23py_inverted_multi_index_set_base(PyArrayObject *__pyx_v_ar
  */
   __pyx_f_5numpy_set_array_base(__pyx_v_arr, ((PyObject *)__pyx_v_f));
 
-  /* "py_inverted_multi_index.pyx":77
+  /* "py_inverted_multi_index.pyx":51
  *         cimi.c_delete(self._data)
  * 
  * cdef void set_base(cnp.ndarray arr, const void* c_arr):             # <<<<<<<<<<<<<<
@@ -3923,7 +3327,7 @@ static void __pyx_f_23py_inverted_multi_index_set_base(PyArrayObject *__pyx_v_ar
   __Pyx_RefNannyFinishContext();
 }
 
-/* "py_inverted_multi_index.pyx":82
+/* "py_inverted_multi_index.pyx":56
  *     cnp.set_array_base(arr, f)
  * 
  * cdef pyimi.PyInvertedMultiIndex c_to_py_imi(cimi.InvertedMultiIndex[IndexEntry]* c_imi):             # <<<<<<<<<<<<<<
@@ -3954,7 +3358,7 @@ static struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *__pyx_f_
   int __pyx_t_11;
   __Pyx_RefNannySetupContext("c_to_py_imi", 0);
 
-  /* "py_inverted_multi_index.pyx":83
+  /* "py_inverted_multi_index.pyx":57
  * 
  * cdef pyimi.PyInvertedMultiIndex c_to_py_imi(cimi.InvertedMultiIndex[IndexEntry]* c_imi):
  *     cdef IndexEntry[::1] entries_view=<IndexEntry[:c_imi.entries_count]>c_imi.entries             # <<<<<<<<<<<<<<
@@ -3964,38 +3368,38 @@ static struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *__pyx_f_
   __pyx_t_1 = __pyx_v_c_imi->entries;
   if (!__pyx_t_1) {
     PyErr_SetString(PyExc_ValueError,"Cannot create cython.array from NULL pointer");
-    __PYX_ERR(0, 83, __pyx_L1_error)
+    __PYX_ERR(0, 57, __pyx_L1_error)
   }
   __pyx_t_4 = __pyx_format_from_typeinfo(&__Pyx_TypeInfo_nn___pyx_t_30py_inverted_multi_index_common_IndexEntry);
   __pyx_t_3 = Py_BuildValue((char*) "("  __PYX_BUILD_PY_SSIZE_T  ")", ((Py_ssize_t)__pyx_v_c_imi->entries_count));
-  if (unlikely(!__pyx_t_4 || !__pyx_t_3 || !PyBytes_AsString(__pyx_t_4))) __PYX_ERR(0, 83, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4 || !__pyx_t_3 || !PyBytes_AsString(__pyx_t_4))) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __pyx_array_new(__pyx_t_3, sizeof(__pyx_t_30py_inverted_multi_index_common_IndexEntry), PyBytes_AS_STRING(__pyx_t_4), (char *) "c", (char *) __pyx_t_1);
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 83, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_30py_inverted_multi_index_common_IndexEntry(((PyObject *)__pyx_t_2));
-  if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 83, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_DECREF(((PyObject *)__pyx_t_2)); __pyx_t_2 = 0;
   __pyx_v_entries_view = __pyx_t_5;
   __pyx_t_5.memview = NULL;
   __pyx_t_5.data = NULL;
 
-  /* "py_inverted_multi_index.pyx":84
+  /* "py_inverted_multi_index.pyx":58
  * cdef pyimi.PyInvertedMultiIndex c_to_py_imi(cimi.InvertedMultiIndex[IndexEntry]* c_imi):
  *     cdef IndexEntry[::1] entries_view=<IndexEntry[:c_imi.entries_count]>c_imi.entries
  *     cdef cnp.ndarray entries = np.asarray(entries_view)             # <<<<<<<<<<<<<<
  *     set_base(entries, c_imi.entries)
  * 
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 58, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 58, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_entries_view, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_30py_inverted_multi_index_common_IndexEntry, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_30py_inverted_multi_index_common_IndexEntry, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_entries_view, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_30py_inverted_multi_index_common_IndexEntry, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_30py_inverted_multi_index_common_IndexEntry, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 58, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_7 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
@@ -4008,14 +3412,14 @@ static struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *__pyx_f_
     }
   }
   if (!__pyx_t_7) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 84, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 58, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_4);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_3};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 84, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -4024,30 +3428,30 @@ static struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *__pyx_f_
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_3};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 84, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else
     #endif
     {
-      __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 84, __pyx_L1_error)
+      __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7); __pyx_t_7 = NULL;
       __Pyx_GIVEREF(__pyx_t_3);
       PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_3);
       __pyx_t_3 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 84, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 84, __pyx_L1_error)
+  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 58, __pyx_L1_error)
   __pyx_v_entries = ((PyArrayObject *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "py_inverted_multi_index.pyx":85
+  /* "py_inverted_multi_index.pyx":59
  *     cdef IndexEntry[::1] entries_view=<IndexEntry[:c_imi.entries_count]>c_imi.entries
  *     cdef cnp.ndarray entries = np.asarray(entries_view)
  *     set_base(entries, c_imi.entries)             # <<<<<<<<<<<<<<
@@ -4056,7 +3460,7 @@ static struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *__pyx_f_
  */
   __pyx_f_23py_inverted_multi_index_set_base(__pyx_v_entries, __pyx_v_c_imi->entries);
 
-  /* "py_inverted_multi_index.pyx":87
+  /* "py_inverted_multi_index.pyx":61
  *     set_base(entries, c_imi.entries)
  * 
  *     cdef int[::1] entries_list_starts_view=<int[:c_imi.entries_list_starts_len]>c_imi.entries_list_starts             # <<<<<<<<<<<<<<
@@ -4066,38 +3470,38 @@ static struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *__pyx_f_
   __pyx_t_9 = __pyx_v_c_imi->entries_list_starts;
   if (!__pyx_t_9) {
     PyErr_SetString(PyExc_ValueError,"Cannot create cython.array from NULL pointer");
-    __PYX_ERR(0, 87, __pyx_L1_error)
+    __PYX_ERR(0, 61, __pyx_L1_error)
   }
   __pyx_t_6 = __pyx_format_from_typeinfo(&__Pyx_TypeInfo_int);
   __pyx_t_4 = Py_BuildValue((char*) "("  __PYX_BUILD_PY_SSIZE_T  ")", ((Py_ssize_t)__pyx_v_c_imi->entries_list_starts_len));
-  if (unlikely(!__pyx_t_6 || !__pyx_t_4 || !PyBytes_AsString(__pyx_t_6))) __PYX_ERR(0, 87, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6 || !__pyx_t_4 || !PyBytes_AsString(__pyx_t_6))) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_2 = __pyx_array_new(__pyx_t_4, sizeof(int), PyBytes_AS_STRING(__pyx_t_6), (char *) "c", (char *) __pyx_t_9);
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_dc_int(((PyObject *)__pyx_t_2));
-  if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 87, __pyx_L1_error)
+  if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_DECREF(((PyObject *)__pyx_t_2)); __pyx_t_2 = 0;
   __pyx_v_entries_list_starts_view = __pyx_t_10;
   __pyx_t_10.memview = NULL;
   __pyx_t_10.data = NULL;
 
-  /* "py_inverted_multi_index.pyx":88
+  /* "py_inverted_multi_index.pyx":62
  * 
  *     cdef int[::1] entries_list_starts_view=<int[:c_imi.entries_list_starts_len]>c_imi.entries_list_starts
  *     cdef cnp.ndarray entries_list_starts=np.asarray(entries_list_starts_view)             # <<<<<<<<<<<<<<
  *     set_base(entries_list_starts, c_imi.entries_list_starts)
  * 
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_asarray); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_asarray); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_v_entries_list_starts_view, 1, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_v_entries_list_starts_view, 1, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_8))) {
@@ -4110,14 +3514,14 @@ static struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *__pyx_f_
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 88, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 62, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_6);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_8)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_4};
-      __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 88, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 62, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -4126,30 +3530,30 @@ static struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *__pyx_f_
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_8)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_4};
-      __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 88, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 62, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else
     #endif
     {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 88, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 62, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_3); __pyx_t_3 = NULL;
       __Pyx_GIVEREF(__pyx_t_4);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_4);
       __pyx_t_4 = 0;
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 88, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 62, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 88, __pyx_L1_error)
+  if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 62, __pyx_L1_error)
   __pyx_v_entries_list_starts = ((PyArrayObject *)__pyx_t_6);
   __pyx_t_6 = 0;
 
-  /* "py_inverted_multi_index.pyx":89
+  /* "py_inverted_multi_index.pyx":63
  *     cdef int[::1] entries_list_starts_view=<int[:c_imi.entries_list_starts_len]>c_imi.entries_list_starts
  *     cdef cnp.ndarray entries_list_starts=np.asarray(entries_list_starts_view)
  *     set_base(entries_list_starts, c_imi.entries_list_starts)             # <<<<<<<<<<<<<<
@@ -4158,7 +3562,7 @@ static struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *__pyx_f_
  */
   __pyx_f_23py_inverted_multi_index_set_base(__pyx_v_entries_list_starts, __pyx_v_c_imi->entries_list_starts);
 
-  /* "py_inverted_multi_index.pyx":91
+  /* "py_inverted_multi_index.pyx":65
  *     set_base(entries_list_starts, c_imi.entries_list_starts)
  * 
  *     cdef int subspaces_count = c_imi.subspaces_count             # <<<<<<<<<<<<<<
@@ -4168,7 +3572,7 @@ static struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *__pyx_f_
   __pyx_t_11 = __pyx_v_c_imi->subspaces_count;
   __pyx_v_subspaces_count = __pyx_t_11;
 
-  /* "py_inverted_multi_index.pyx":92
+  /* "py_inverted_multi_index.pyx":66
  * 
  *     cdef int subspaces_count = c_imi.subspaces_count
  *     cdef int centroids_count_in_each_subspace = c_imi.centroids_count_in_each_subspace             # <<<<<<<<<<<<<<
@@ -4178,18 +3582,18 @@ static struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *__pyx_f_
   __pyx_t_11 = __pyx_v_c_imi->centroids_count_in_each_subspace;
   __pyx_v_centroids_count_in_each_subspace = __pyx_t_11;
 
-  /* "py_inverted_multi_index.pyx":93
+  /* "py_inverted_multi_index.pyx":67
  *     cdef int subspaces_count = c_imi.subspaces_count
  *     cdef int centroids_count_in_each_subspace = c_imi.centroids_count_in_each_subspace
  *     cdef pyimi.PyInvertedMultiIndex py_imi = pyimi.PyInvertedMultiIndex(entries, entries_list_starts, subspaces_count, centroids_count_in_each_subspace)             # <<<<<<<<<<<<<<
  *     return py_imi
  * 
  */
-  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_subspaces_count); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_subspaces_count); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_centroids_count_in_each_subspace); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_centroids_count_in_each_subspace); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_7 = PyTuple_New(4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_INCREF(((PyObject *)__pyx_v_entries));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_entries));
@@ -4203,13 +3607,13 @@ static struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *__pyx_f_
   PyTuple_SET_ITEM(__pyx_t_7, 3, __pyx_t_8);
   __pyx_t_6 = 0;
   __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_23py_inverted_multi_index_PyInvertedMultiIndex), __pyx_t_7, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_23py_inverted_multi_index_PyInvertedMultiIndex), __pyx_t_7, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_v_py_imi = ((struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *)__pyx_t_8);
   __pyx_t_8 = 0;
 
-  /* "py_inverted_multi_index.pyx":94
+  /* "py_inverted_multi_index.pyx":68
  *     cdef int centroids_count_in_each_subspace = c_imi.centroids_count_in_each_subspace
  *     cdef pyimi.PyInvertedMultiIndex py_imi = pyimi.PyInvertedMultiIndex(entries, entries_list_starts, subspaces_count, centroids_count_in_each_subspace)
  *     return py_imi             # <<<<<<<<<<<<<<
@@ -4221,7 +3625,7 @@ static struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *__pyx_f_
   __pyx_r = __pyx_v_py_imi;
   goto __pyx_L0;
 
-  /* "py_inverted_multi_index.pyx":82
+  /* "py_inverted_multi_index.pyx":56
  *     cnp.set_array_base(arr, f)
  * 
  * cdef pyimi.PyInvertedMultiIndex c_to_py_imi(cimi.InvertedMultiIndex[IndexEntry]* c_imi):             # <<<<<<<<<<<<<<
@@ -4252,7 +3656,7 @@ static struct __pyx_obj_23py_inverted_multi_index_PyInvertedMultiIndex *__pyx_f_
   return __pyx_r;
 }
 
-/* "py_inverted_multi_index.pyx":96
+/* "py_inverted_multi_index.pyx":70
  *     return py_imi
  * 
  * cdef cimi.InvertedMultiIndex[IndexEntry]* py_to_c_imi(pyimi.PyInvertedMultiIndex py_imi):             # <<<<<<<<<<<<<<
@@ -4274,7 +3678,7 @@ static InvertedMultiIndex<__pyx_t_30py_inverted_multi_index_common_IndexEntry>  
   Py_ssize_t __pyx_t_5;
   __Pyx_RefNannySetupContext("py_to_c_imi", 0);
 
-  /* "py_inverted_multi_index.pyx":97
+  /* "py_inverted_multi_index.pyx":71
  * 
  * cdef cimi.InvertedMultiIndex[IndexEntry]* py_to_c_imi(pyimi.PyInvertedMultiIndex py_imi):
  *     cdef IndexEntry[::1] entries_view = py_imi.entries             # <<<<<<<<<<<<<<
@@ -4282,12 +3686,12 @@ static InvertedMultiIndex<__pyx_t_30py_inverted_multi_index_common_IndexEntry>  
  *     cdef int entries_list_starts_len = py_imi.entries_list_starts.shape[0]
  */
   __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_30py_inverted_multi_index_common_IndexEntry(((PyObject *)__pyx_v_py_imi->entries));
-  if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 97, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 71, __pyx_L1_error)
   __pyx_v_entries_view = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "py_inverted_multi_index.pyx":98
+  /* "py_inverted_multi_index.pyx":72
  * cdef cimi.InvertedMultiIndex[IndexEntry]* py_to_c_imi(pyimi.PyInvertedMultiIndex py_imi):
  *     cdef IndexEntry[::1] entries_view = py_imi.entries
  *     cdef int[::1] entries_list_starts_view = py_imi.entries_list_starts             # <<<<<<<<<<<<<<
@@ -4295,12 +3699,12 @@ static InvertedMultiIndex<__pyx_t_30py_inverted_multi_index_common_IndexEntry>  
  *     cdef cimi.InvertedMultiIndex[IndexEntry]* c_imi = new cimi.InvertedMultiIndex[IndexEntry](&entries_view[0], &entries_list_starts_view[0], entries_list_starts_len,
  */
   __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dc_int(((PyObject *)__pyx_v_py_imi->entries_list_starts));
-  if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 98, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 72, __pyx_L1_error)
   __pyx_v_entries_list_starts_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "py_inverted_multi_index.pyx":99
+  /* "py_inverted_multi_index.pyx":73
  *     cdef IndexEntry[::1] entries_view = py_imi.entries
  *     cdef int[::1] entries_list_starts_view = py_imi.entries_list_starts
  *     cdef int entries_list_starts_len = py_imi.entries_list_starts.shape[0]             # <<<<<<<<<<<<<<
@@ -4309,7 +3713,7 @@ static InvertedMultiIndex<__pyx_t_30py_inverted_multi_index_common_IndexEntry>  
  */
   __pyx_v_entries_list_starts_len = (__pyx_v_py_imi->entries_list_starts->dimensions[0]);
 
-  /* "py_inverted_multi_index.pyx":100
+  /* "py_inverted_multi_index.pyx":74
  *     cdef int[::1] entries_list_starts_view = py_imi.entries_list_starts
  *     cdef int entries_list_starts_len = py_imi.entries_list_starts.shape[0]
  *     cdef cimi.InvertedMultiIndex[IndexEntry]* c_imi = new cimi.InvertedMultiIndex[IndexEntry](&entries_view[0], &entries_list_starts_view[0], entries_list_starts_len,             # <<<<<<<<<<<<<<
@@ -4324,7 +3728,7 @@ static InvertedMultiIndex<__pyx_t_30py_inverted_multi_index_common_IndexEntry>  
   } else if (unlikely(__pyx_t_3 >= __pyx_v_entries_view.shape[0])) __pyx_t_4 = 0;
   if (unlikely(__pyx_t_4 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_4);
-    __PYX_ERR(0, 100, __pyx_L1_error)
+    __PYX_ERR(0, 74, __pyx_L1_error)
   }
   __pyx_t_5 = 0;
   __pyx_t_4 = -1;
@@ -4334,10 +3738,10 @@ static InvertedMultiIndex<__pyx_t_30py_inverted_multi_index_common_IndexEntry>  
   } else if (unlikely(__pyx_t_5 >= __pyx_v_entries_list_starts_view.shape[0])) __pyx_t_4 = 0;
   if (unlikely(__pyx_t_4 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_4);
-    __PYX_ERR(0, 100, __pyx_L1_error)
+    __PYX_ERR(0, 74, __pyx_L1_error)
   }
 
-  /* "py_inverted_multi_index.pyx":101
+  /* "py_inverted_multi_index.pyx":75
  *     cdef int entries_list_starts_len = py_imi.entries_list_starts.shape[0]
  *     cdef cimi.InvertedMultiIndex[IndexEntry]* c_imi = new cimi.InvertedMultiIndex[IndexEntry](&entries_view[0], &entries_list_starts_view[0], entries_list_starts_len,
  *                                                                     py_imi.subspaces_count, py_imi.centroids_count_in_each_subspace)             # <<<<<<<<<<<<<<
@@ -4346,7 +3750,7 @@ static InvertedMultiIndex<__pyx_t_30py_inverted_multi_index_common_IndexEntry>  
  */
   __pyx_v_c_imi = new InvertedMultiIndex<__pyx_t_30py_inverted_multi_index_common_IndexEntry> ((&(*((__pyx_t_30py_inverted_multi_index_common_IndexEntry *) ( /* dim=0 */ ((char *) (((__pyx_t_30py_inverted_multi_index_common_IndexEntry *) __pyx_v_entries_view.data) + __pyx_t_3)) )))), (&(*((int *) ( /* dim=0 */ ((char *) (((int *) __pyx_v_entries_list_starts_view.data) + __pyx_t_5)) )))), __pyx_v_entries_list_starts_len, __pyx_v_py_imi->subspaces_count, __pyx_v_py_imi->centroids_count_in_each_subspace);
 
-  /* "py_inverted_multi_index.pyx":104
+  /* "py_inverted_multi_index.pyx":78
  *     # cdef cimi.InvertedMultiIndex[IndexEntry]* c_imi = new cimi.InvertedMultiIndex[IndexEntry](<IndexEntry*>py_imi.entries.data, <int*>py_imi.entries_list_starts.data, py_imi.entries_list_starts.shape[0],
  *     #                                                                 py_imi.subspaces_count, py_imi.centroids_count_in_each_subspace)
  *     c_imi.manage_memory=False             # <<<<<<<<<<<<<<
@@ -4355,7 +3759,7 @@ static InvertedMultiIndex<__pyx_t_30py_inverted_multi_index_common_IndexEntry>  
  */
   __pyx_v_c_imi->manage_memory = 0;
 
-  /* "py_inverted_multi_index.pyx":105
+  /* "py_inverted_multi_index.pyx":79
  *     #                                                                 py_imi.subspaces_count, py_imi.centroids_count_in_each_subspace)
  *     c_imi.manage_memory=False
  *     return c_imi             # <<<<<<<<<<<<<<
@@ -4365,7 +3769,7 @@ static InvertedMultiIndex<__pyx_t_30py_inverted_multi_index_common_IndexEntry>  
   __pyx_r = __pyx_v_c_imi;
   goto __pyx_L0;
 
-  /* "py_inverted_multi_index.pyx":96
+  /* "py_inverted_multi_index.pyx":70
  *     return py_imi
  * 
  * cdef cimi.InvertedMultiIndex[IndexEntry]* py_to_c_imi(pyimi.PyInvertedMultiIndex py_imi):             # <<<<<<<<<<<<<<
@@ -4386,7 +3790,7 @@ static InvertedMultiIndex<__pyx_t_30py_inverted_multi_index_common_IndexEntry>  
   return __pyx_r;
 }
 
-/* "py_inverted_multi_index.pyx":108
+/* "py_inverted_multi_index.pyx":82
  * 
  * 
  * cdef cimi.Vectors[FLOAT]* py_to_c_vectors(FLOAT[:,::1] vectors):             # <<<<<<<<<<<<<<
@@ -4405,7 +3809,7 @@ static Vectors<__pyx_t_30py_inverted_multi_index_common_FLOAT>  *__pyx_f_23py_in
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("py_to_c_vectors", 0);
 
-  /* "py_inverted_multi_index.pyx":109
+  /* "py_inverted_multi_index.pyx":83
  * 
  * cdef cimi.Vectors[FLOAT]* py_to_c_vectors(FLOAT[:,::1] vectors):
  *     cdef int vectors_count=vectors.shape[0]             # <<<<<<<<<<<<<<
@@ -4414,7 +3818,7 @@ static Vectors<__pyx_t_30py_inverted_multi_index_common_FLOAT>  *__pyx_f_23py_in
  */
   __pyx_v_vectors_count = (__pyx_v_vectors.shape[0]);
 
-  /* "py_inverted_multi_index.pyx":110
+  /* "py_inverted_multi_index.pyx":84
  * cdef cimi.Vectors[FLOAT]* py_to_c_vectors(FLOAT[:,::1] vectors):
  *     cdef int vectors_count=vectors.shape[0]
  *     cdef int vectors_dim=vectors.shape[1]             # <<<<<<<<<<<<<<
@@ -4423,7 +3827,7 @@ static Vectors<__pyx_t_30py_inverted_multi_index_common_FLOAT>  *__pyx_f_23py_in
  */
   __pyx_v_vectors_dim = (__pyx_v_vectors.shape[1]);
 
-  /* "py_inverted_multi_index.pyx":111
+  /* "py_inverted_multi_index.pyx":85
  *     cdef int vectors_count=vectors.shape[0]
  *     cdef int vectors_dim=vectors.shape[1]
  *     cdef cimi.Vectors[FLOAT]* vectors_=new cimi.Vectors[FLOAT](&vectors[0][0], vectors_count, vectors_dim)             # <<<<<<<<<<<<<<
@@ -4441,7 +3845,7 @@ static Vectors<__pyx_t_30py_inverted_multi_index_common_FLOAT>  *__pyx_f_23py_in
         __pyx_tmp_idx += __pyx_tmp_shape;
     if (1 && (__pyx_tmp_idx < 0 || __pyx_tmp_idx >= __pyx_tmp_shape)) {
         PyErr_SetString(PyExc_IndexError, "Index out of bounds (axis 0)");
-        __PYX_ERR(0, 111, __pyx_L1_error)
+        __PYX_ERR(0, 85, __pyx_L1_error)
     }
         __pyx_t_1.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
@@ -4458,14 +3862,14 @@ __pyx_t_2 = 0;
   } else if (unlikely(__pyx_t_2 >= __pyx_t_1.shape[0])) __pyx_t_3 = 0;
   if (unlikely(__pyx_t_3 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_3);
-    __PYX_ERR(0, 111, __pyx_L1_error)
+    __PYX_ERR(0, 85, __pyx_L1_error)
   }
   __pyx_v_vectors_ = new Vectors<__pyx_t_30py_inverted_multi_index_common_FLOAT> ((&(*((__pyx_t_30py_inverted_multi_index_common_FLOAT *) ( /* dim=0 */ ((char *) (((__pyx_t_30py_inverted_multi_index_common_FLOAT *) __pyx_t_1.data) + __pyx_t_2)) )))), __pyx_v_vectors_count, __pyx_v_vectors_dim);
   __PYX_XDEC_MEMVIEW(&__pyx_t_1, 1);
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "py_inverted_multi_index.pyx":112
+  /* "py_inverted_multi_index.pyx":86
  *     cdef int vectors_dim=vectors.shape[1]
  *     cdef cimi.Vectors[FLOAT]* vectors_=new cimi.Vectors[FLOAT](&vectors[0][0], vectors_count, vectors_dim)
  *     return vectors_             # <<<<<<<<<<<<<<
@@ -4475,7 +3879,7 @@ __pyx_t_2 = 0;
   __pyx_r = __pyx_v_vectors_;
   goto __pyx_L0;
 
-  /* "py_inverted_multi_index.pyx":108
+  /* "py_inverted_multi_index.pyx":82
  * 
  * 
  * cdef cimi.Vectors[FLOAT]* py_to_c_vectors(FLOAT[:,::1] vectors):             # <<<<<<<<<<<<<<
@@ -4493,7 +3897,7 @@ __pyx_t_2 = 0;
   return __pyx_r;
 }
 
-/* "py_inverted_multi_index.pyx":114
+/* "py_inverted_multi_index.pyx":88
  *     return vectors_
  * 
  * cdef cimi.SubspacedVectors[FLOAT]* py_to_c_subspaced_vectors(FLOAT[:,:,::1] vectors):             # <<<<<<<<<<<<<<
@@ -4514,7 +3918,7 @@ static SubspacedVectors<__pyx_t_30py_inverted_multi_index_common_FLOAT>  *__pyx_
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("py_to_c_subspaced_vectors", 0);
 
-  /* "py_inverted_multi_index.pyx":115
+  /* "py_inverted_multi_index.pyx":89
  * 
  * cdef cimi.SubspacedVectors[FLOAT]* py_to_c_subspaced_vectors(FLOAT[:,:,::1] vectors):
  *     cdef int subspaces_count=vectors.shape[0]             # <<<<<<<<<<<<<<
@@ -4523,7 +3927,7 @@ static SubspacedVectors<__pyx_t_30py_inverted_multi_index_common_FLOAT>  *__pyx_
  */
   __pyx_v_subspaces_count = (__pyx_v_vectors.shape[0]);
 
-  /* "py_inverted_multi_index.pyx":116
+  /* "py_inverted_multi_index.pyx":90
  * cdef cimi.SubspacedVectors[FLOAT]* py_to_c_subspaced_vectors(FLOAT[:,:,::1] vectors):
  *     cdef int subspaces_count=vectors.shape[0]
  *     cdef int vectors_count=vectors.shape[1]             # <<<<<<<<<<<<<<
@@ -4532,7 +3936,7 @@ static SubspacedVectors<__pyx_t_30py_inverted_multi_index_common_FLOAT>  *__pyx_
  */
   __pyx_v_vectors_count = (__pyx_v_vectors.shape[1]);
 
-  /* "py_inverted_multi_index.pyx":117
+  /* "py_inverted_multi_index.pyx":91
  *     cdef int subspaces_count=vectors.shape[0]
  *     cdef int vectors_count=vectors.shape[1]
  *     cdef int subspace_dim=vectors.shape[2]             # <<<<<<<<<<<<<<
@@ -4541,7 +3945,7 @@ static SubspacedVectors<__pyx_t_30py_inverted_multi_index_common_FLOAT>  *__pyx_
  */
   __pyx_v_subspace_dim = (__pyx_v_vectors.shape[2]);
 
-  /* "py_inverted_multi_index.pyx":118
+  /* "py_inverted_multi_index.pyx":92
  *     cdef int vectors_count=vectors.shape[1]
  *     cdef int subspace_dim=vectors.shape[2]
  *     cdef cimi.SubspacedVectors[FLOAT]* subspaced_vectors=new cimi.SubspacedVectors[FLOAT](&vectors[0][0][0], subspaces_count, vectors_count, subspace_dim)             # <<<<<<<<<<<<<<
@@ -4558,7 +3962,7 @@ static SubspacedVectors<__pyx_t_30py_inverted_multi_index_common_FLOAT>  *__pyx_
         __pyx_tmp_idx += __pyx_tmp_shape;
     if (1 && (__pyx_tmp_idx < 0 || __pyx_tmp_idx >= __pyx_tmp_shape)) {
         PyErr_SetString(PyExc_IndexError, "Index out of bounds (axis 0)");
-        __PYX_ERR(0, 118, __pyx_L1_error)
+        __PYX_ERR(0, 92, __pyx_L1_error)
     }
         __pyx_t_1.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
@@ -4582,7 +3986,7 @@ __pyx_t_2.data = __pyx_t_1.data;
         __pyx_tmp_idx += __pyx_tmp_shape;
     if (1 && (__pyx_tmp_idx < 0 || __pyx_tmp_idx >= __pyx_tmp_shape)) {
         PyErr_SetString(PyExc_IndexError, "Index out of bounds (axis 0)");
-        __PYX_ERR(0, 118, __pyx_L1_error)
+        __PYX_ERR(0, 92, __pyx_L1_error)
     }
         __pyx_t_2.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
@@ -4602,14 +4006,14 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_1, 1);
   } else if (unlikely(__pyx_t_3 >= __pyx_t_2.shape[0])) __pyx_t_4 = 0;
   if (unlikely(__pyx_t_4 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_4);
-    __PYX_ERR(0, 118, __pyx_L1_error)
+    __PYX_ERR(0, 92, __pyx_L1_error)
   }
   __pyx_v_subspaced_vectors = new SubspacedVectors<__pyx_t_30py_inverted_multi_index_common_FLOAT> ((&(*((__pyx_t_30py_inverted_multi_index_common_FLOAT *) ( /* dim=0 */ ((char *) (((__pyx_t_30py_inverted_multi_index_common_FLOAT *) __pyx_t_2.data) + __pyx_t_3)) )))), __pyx_v_subspaces_count, __pyx_v_vectors_count, __pyx_v_subspace_dim);
   __PYX_XDEC_MEMVIEW(&__pyx_t_2, 1);
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "py_inverted_multi_index.pyx":119
+  /* "py_inverted_multi_index.pyx":93
  *     cdef int subspace_dim=vectors.shape[2]
  *     cdef cimi.SubspacedVectors[FLOAT]* subspaced_vectors=new cimi.SubspacedVectors[FLOAT](&vectors[0][0][0], subspaces_count, vectors_count, subspace_dim)
  *     return subspaced_vectors             # <<<<<<<<<<<<<<
@@ -4617,7 +4021,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_1, 1);
   __pyx_r = __pyx_v_subspaced_vectors;
   goto __pyx_L0;
 
-  /* "py_inverted_multi_index.pyx":114
+  /* "py_inverted_multi_index.pyx":88
  *     return vectors_
  * 
  * cdef cimi.SubspacedVectors[FLOAT]* py_to_c_subspaced_vectors(FLOAT[:,:,::1] vectors):             # <<<<<<<<<<<<<<
@@ -19491,102 +18895,6 @@ static PyTypeObject __pyx_type_23py_inverted_multi_index_PyInvertedMultiIndexSea
   #endif
 };
 
-static PyObject *__pyx_tp_new_23py_inverted_multi_index_PyMultiIndexUtil(PyTypeObject *t, PyObject *a, PyObject *k) {
-  PyObject *o;
-  if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
-    o = (*t->tp_alloc)(t, 0);
-  } else {
-    o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
-  }
-  if (unlikely(!o)) return 0;
-  if (unlikely(__pyx_pw_23py_inverted_multi_index_16PyMultiIndexUtil_1__cinit__(o, a, k) < 0)) goto bad;
-  return o;
-  bad:
-  Py_DECREF(o); o = 0;
-  return NULL;
-}
-
-static void __pyx_tp_dealloc_23py_inverted_multi_index_PyMultiIndexUtil(PyObject *o) {
-  #if PY_VERSION_HEX >= 0x030400a1
-  if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
-    if (PyObject_CallFinalizerFromDealloc(o)) return;
-  }
-  #endif
-  {
-    PyObject *etype, *eval, *etb;
-    PyErr_Fetch(&etype, &eval, &etb);
-    ++Py_REFCNT(o);
-    __pyx_pw_23py_inverted_multi_index_16PyMultiIndexUtil_7__dealloc__(o);
-    --Py_REFCNT(o);
-    PyErr_Restore(etype, eval, etb);
-  }
-  (*Py_TYPE(o)->tp_free)(o);
-}
-
-static PyMethodDef __pyx_methods_23py_inverted_multi_index_PyMultiIndexUtil[] = {
-  {"flat_index", (PyCFunction)__pyx_pw_23py_inverted_multi_index_16PyMultiIndexUtil_3flat_index, METH_O, 0},
-  {"flat_indices", (PyCFunction)__pyx_pw_23py_inverted_multi_index_16PyMultiIndexUtil_5flat_indices, METH_O, 0},
-  {0, 0, 0, 0}
-};
-
-static PyTypeObject __pyx_type_23py_inverted_multi_index_PyMultiIndexUtil = {
-  PyVarObject_HEAD_INIT(0, 0)
-  "py_inverted_multi_index.PyMultiIndexUtil", /*tp_name*/
-  sizeof(struct __pyx_obj_23py_inverted_multi_index_PyMultiIndexUtil), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_23py_inverted_multi_index_PyMultiIndexUtil, /*tp_dealloc*/
-  0, /*tp_print*/
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
-  #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
-  #endif
-  #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
-  #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE, /*tp_flags*/
-  0, /*tp_doc*/
-  0, /*tp_traverse*/
-  0, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  __pyx_methods_23py_inverted_multi_index_PyMultiIndexUtil, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
-  0, /*tp_dictoffset*/
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_23py_inverted_multi_index_PyMultiIndexUtil, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
-  #if PY_VERSION_HEX >= 0x030400a1
-  0, /*tp_finalize*/
-  #endif
-};
-
 static PyObject *__pyx_tp_new_23py_inverted_multi_index__finalizer(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
@@ -20394,7 +19702,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u__27, __pyx_k__27, sizeof(__pyx_k__27), 0, 1, 0, 0},
   {&__pyx_n_s_allocate_buffer, __pyx_k_allocate_buffer, sizeof(__pyx_k_allocate_buffer), 0, 0, 1, 1},
   {&__pyx_n_s_asarray, __pyx_k_asarray, sizeof(__pyx_k_asarray), 0, 0, 1, 1},
-  {&__pyx_n_s_astype, __pyx_k_astype, sizeof(__pyx_k_astype), 0, 0, 1, 1},
   {&__pyx_n_s_base, __pyx_k_base, sizeof(__pyx_k_base), 0, 0, 1, 1},
   {&__pyx_n_s_c, __pyx_k_c, sizeof(__pyx_k_c), 0, 0, 1, 1},
   {&__pyx_n_u_c, __pyx_k_c, sizeof(__pyx_k_c), 0, 1, 0, 1},
@@ -20402,8 +19709,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_class, __pyx_k_class, sizeof(__pyx_k_class), 0, 0, 1, 1},
   {&__pyx_kp_s_contiguous_and_direct, __pyx_k_contiguous_and_direct, sizeof(__pyx_k_contiguous_and_direct), 0, 0, 1, 0},
   {&__pyx_kp_s_contiguous_and_indirect, __pyx_k_contiguous_and_indirect, sizeof(__pyx_k_contiguous_and_indirect), 0, 0, 1, 0},
-  {&__pyx_n_s_copy, __pyx_k_copy, sizeof(__pyx_k_copy), 0, 0, 1, 1},
-  {&__pyx_n_s_dim_size, __pyx_k_dim_size, sizeof(__pyx_k_dim_size), 0, 0, 1, 1},
   {&__pyx_n_s_dtype_is_object, __pyx_k_dtype_is_object, sizeof(__pyx_k_dtype_is_object), 0, 0, 1, 1},
   {&__pyx_n_s_empty, __pyx_k_empty, sizeof(__pyx_k_empty), 0, 0, 1, 1},
   {&__pyx_n_s_encode, __pyx_k_encode, sizeof(__pyx_k_encode), 0, 0, 1, 1},
@@ -20425,7 +19730,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_memview, __pyx_k_memview, sizeof(__pyx_k_memview), 0, 0, 1, 1},
   {&__pyx_n_s_mode, __pyx_k_mode, sizeof(__pyx_k_mode), 0, 0, 1, 1},
-  {&__pyx_n_s_n_dims, __pyx_k_n_dims, sizeof(__pyx_k_n_dims), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
   {&__pyx_n_s_name_2, __pyx_k_name_2, sizeof(__pyx_k_name_2), 0, 0, 1, 1},
   {&__pyx_kp_u_ndarray_is_not_C_contiguous, __pyx_k_ndarray_is_not_C_contiguous, sizeof(__pyx_k_ndarray_is_not_C_contiguous), 0, 1, 0, 0},
@@ -20906,13 +20210,9 @@ PyMODINIT_FUNC PyInit_py_inverted_multi_index(void)
   __pyx_type_23py_inverted_multi_index_PyInvertedMultiIndexSearcher.tp_print = 0;
   if (PyObject_SetAttrString(__pyx_m, "PyInvertedMultiIndexSearcher", (PyObject *)&__pyx_type_23py_inverted_multi_index_PyInvertedMultiIndexSearcher) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
   __pyx_ptype_23py_inverted_multi_index_PyInvertedMultiIndexSearcher = &__pyx_type_23py_inverted_multi_index_PyInvertedMultiIndexSearcher;
-  if (PyType_Ready(&__pyx_type_23py_inverted_multi_index_PyMultiIndexUtil) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
-  __pyx_type_23py_inverted_multi_index_PyMultiIndexUtil.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "PyMultiIndexUtil", (PyObject *)&__pyx_type_23py_inverted_multi_index_PyMultiIndexUtil) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
-  __pyx_ptype_23py_inverted_multi_index_PyMultiIndexUtil = &__pyx_type_23py_inverted_multi_index_PyMultiIndexUtil;
-  if (PyType_Ready(&__pyx_type_23py_inverted_multi_index__finalizer) < 0) __PYX_ERR(0, 73, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_23py_inverted_multi_index__finalizer) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
   __pyx_type_23py_inverted_multi_index__finalizer.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "_finalizer", (PyObject *)&__pyx_type_23py_inverted_multi_index__finalizer) < 0) __PYX_ERR(0, 73, __pyx_L1_error)
+  if (PyObject_SetAttrString(__pyx_m, "_finalizer", (PyObject *)&__pyx_type_23py_inverted_multi_index__finalizer) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
   __pyx_ptype_23py_inverted_multi_index__finalizer = &__pyx_type_23py_inverted_multi_index__finalizer;
   __pyx_vtabptr_array = &__pyx_vtable_array;
   __pyx_vtable_array.get_memview = (PyObject *(*)(struct __pyx_array_obj *))__pyx_array_get_memview;
@@ -22232,6 +21532,72 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
     return 0;
 }
 
+/* PyErrFetchRestore */
+    #if CYTHON_FAST_THREAD_STATE
+static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb) {
+    PyObject *tmp_type, *tmp_value, *tmp_tb;
+    tmp_type = tstate->curexc_type;
+    tmp_value = tstate->curexc_value;
+    tmp_tb = tstate->curexc_traceback;
+    tstate->curexc_type = type;
+    tstate->curexc_value = value;
+    tstate->curexc_traceback = tb;
+    Py_XDECREF(tmp_type);
+    Py_XDECREF(tmp_value);
+    Py_XDECREF(tmp_tb);
+}
+static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
+    *type = tstate->curexc_type;
+    *value = tstate->curexc_value;
+    *tb = tstate->curexc_traceback;
+    tstate->curexc_type = 0;
+    tstate->curexc_value = 0;
+    tstate->curexc_traceback = 0;
+}
+#endif
+
+/* WriteUnraisableException */
+    static void __Pyx_WriteUnraisable(const char *name, CYTHON_UNUSED int clineno,
+                                  CYTHON_UNUSED int lineno, CYTHON_UNUSED const char *filename,
+                                  int full_traceback, CYTHON_UNUSED int nogil) {
+    PyObject *old_exc, *old_val, *old_tb;
+    PyObject *ctx;
+    __Pyx_PyThreadState_declare
+#ifdef WITH_THREAD
+    PyGILState_STATE state;
+    if (nogil)
+        state = PyGILState_Ensure();
+#ifdef _MSC_VER
+    else state = (PyGILState_STATE)-1;
+#endif
+#endif
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrFetch(&old_exc, &old_val, &old_tb);
+    if (full_traceback) {
+        Py_XINCREF(old_exc);
+        Py_XINCREF(old_val);
+        Py_XINCREF(old_tb);
+        __Pyx_ErrRestore(old_exc, old_val, old_tb);
+        PyErr_PrintEx(1);
+    }
+    #if PY_MAJOR_VERSION < 3
+    ctx = PyString_FromString(name);
+    #else
+    ctx = PyUnicode_FromString(name);
+    #endif
+    __Pyx_ErrRestore(old_exc, old_val, old_tb);
+    if (!ctx) {
+        PyErr_WriteUnraisable(Py_None);
+    } else {
+        PyErr_WriteUnraisable(ctx);
+        Py_DECREF(ctx);
+    }
+#ifdef WITH_THREAD
+    if (nogil)
+        PyGILState_Release(state);
+#endif
+}
+
 /* PyObjectCallMethO */
     #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
@@ -22295,72 +21661,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObjec
     return result;
 }
 #endif
-
-/* PyErrFetchRestore */
-      #if CYTHON_FAST_THREAD_STATE
-static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb) {
-    PyObject *tmp_type, *tmp_value, *tmp_tb;
-    tmp_type = tstate->curexc_type;
-    tmp_value = tstate->curexc_value;
-    tmp_tb = tstate->curexc_traceback;
-    tstate->curexc_type = type;
-    tstate->curexc_value = value;
-    tstate->curexc_traceback = tb;
-    Py_XDECREF(tmp_type);
-    Py_XDECREF(tmp_value);
-    Py_XDECREF(tmp_tb);
-}
-static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
-    *type = tstate->curexc_type;
-    *value = tstate->curexc_value;
-    *tb = tstate->curexc_traceback;
-    tstate->curexc_type = 0;
-    tstate->curexc_value = 0;
-    tstate->curexc_traceback = 0;
-}
-#endif
-
-/* WriteUnraisableException */
-      static void __Pyx_WriteUnraisable(const char *name, CYTHON_UNUSED int clineno,
-                                  CYTHON_UNUSED int lineno, CYTHON_UNUSED const char *filename,
-                                  int full_traceback, CYTHON_UNUSED int nogil) {
-    PyObject *old_exc, *old_val, *old_tb;
-    PyObject *ctx;
-    __Pyx_PyThreadState_declare
-#ifdef WITH_THREAD
-    PyGILState_STATE state;
-    if (nogil)
-        state = PyGILState_Ensure();
-#ifdef _MSC_VER
-    else state = (PyGILState_STATE)-1;
-#endif
-#endif
-    __Pyx_PyThreadState_assign
-    __Pyx_ErrFetch(&old_exc, &old_val, &old_tb);
-    if (full_traceback) {
-        Py_XINCREF(old_exc);
-        Py_XINCREF(old_val);
-        Py_XINCREF(old_tb);
-        __Pyx_ErrRestore(old_exc, old_val, old_tb);
-        PyErr_PrintEx(1);
-    }
-    #if PY_MAJOR_VERSION < 3
-    ctx = PyString_FromString(name);
-    #else
-    ctx = PyUnicode_FromString(name);
-    #endif
-    __Pyx_ErrRestore(old_exc, old_val, old_tb);
-    if (!ctx) {
-        PyErr_WriteUnraisable(Py_None);
-    } else {
-        PyErr_WriteUnraisable(ctx);
-        Py_DECREF(ctx);
-    }
-#ifdef WITH_THREAD
-    if (nogil)
-        PyGILState_Release(state);
-#endif
-}
 
 /* RaiseException */
       #if PY_MAJOR_VERSION < 3
@@ -23772,49 +23072,6 @@ __pyx_fail:
     }
 }
 
-/* CIntToPy */
-          static CYTHON_INLINE PyObject* __Pyx_PyInt_From_PY_LONG_LONG(PY_LONG_LONG value) {
-    const PY_LONG_LONG neg_one = (PY_LONG_LONG) -1, const_zero = (PY_LONG_LONG) 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(PY_LONG_LONG) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(PY_LONG_LONG) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(PY_LONG_LONG) <= sizeof(unsigned PY_LONG_LONG)) {
-            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
-#endif
-        }
-    } else {
-        if (sizeof(PY_LONG_LONG) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(PY_LONG_LONG) <= sizeof(PY_LONG_LONG)) {
-            return PyLong_FromLongLong((PY_LONG_LONG) value);
-#endif
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(PY_LONG_LONG),
-                                     little, !is_unsigned);
-    }
-}
-
-/* MemviewDtypeToObject */
-          static CYTHON_INLINE PyObject *__pyx_memview_get_nn___pyx_t_30py_inverted_multi_index_common_LONGLONG(const char *itemp) {
-    return (PyObject *) __Pyx_PyInt_From_PY_LONG_LONG(*(__pyx_t_30py_inverted_multi_index_common_LONGLONG *) itemp);
-}
-static CYTHON_INLINE int __pyx_memview_set_nn___pyx_t_30py_inverted_multi_index_common_LONGLONG(const char *itemp, PyObject *obj) {
-    __pyx_t_30py_inverted_multi_index_common_LONGLONG value = __Pyx_PyInt_As_PY_LONG_LONG(obj);
-    if ((value == (PY_LONG_LONG)-1) && PyErr_Occurred())
-        return 0;
-    *(__pyx_t_30py_inverted_multi_index_common_LONGLONG *) itemp = value;
-    return 1;
-}
-
 /* MemviewDtypeToObject */
           static CYTHON_INLINE PyObject *__pyx_memview_get_nn___pyx_t_30py_inverted_multi_index_common_IndexEntry(const char *itemp) {
     return (PyObject *) __Pyx_PyInt_From_int(*(__pyx_t_30py_inverted_multi_index_common_IndexEntry *) itemp);
@@ -24480,195 +23737,6 @@ raise_neg_overflow:
     return result;
 }
 
-/* CIntFromPy */
-          static CYTHON_INLINE PY_LONG_LONG __Pyx_PyInt_As_PY_LONG_LONG(PyObject *x) {
-    const PY_LONG_LONG neg_one = (PY_LONG_LONG) -1, const_zero = (PY_LONG_LONG) 0;
-    const int is_unsigned = neg_one > const_zero;
-#if PY_MAJOR_VERSION < 3
-    if (likely(PyInt_Check(x))) {
-        if (sizeof(PY_LONG_LONG) < sizeof(long)) {
-            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, long, PyInt_AS_LONG(x))
-        } else {
-            long val = PyInt_AS_LONG(x);
-            if (is_unsigned && unlikely(val < 0)) {
-                goto raise_neg_overflow;
-            }
-            return (PY_LONG_LONG) val;
-        }
-    } else
-#endif
-    if (likely(PyLong_Check(x))) {
-        if (is_unsigned) {
-#if CYTHON_USE_PYLONG_INTERNALS
-            const digit* digits = ((PyLongObject*)x)->ob_digit;
-            switch (Py_SIZE(x)) {
-                case  0: return (PY_LONG_LONG) 0;
-                case  1: __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, digit, digits[0])
-                case 2:
-                    if (8 * sizeof(PY_LONG_LONG) > 1 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(PY_LONG_LONG) >= 2 * PyLong_SHIFT) {
-                            return (PY_LONG_LONG) (((((PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0]));
-                        }
-                    }
-                    break;
-                case 3:
-                    if (8 * sizeof(PY_LONG_LONG) > 2 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(PY_LONG_LONG) >= 3 * PyLong_SHIFT) {
-                            return (PY_LONG_LONG) (((((((PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0]));
-                        }
-                    }
-                    break;
-                case 4:
-                    if (8 * sizeof(PY_LONG_LONG) > 3 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(PY_LONG_LONG) >= 4 * PyLong_SHIFT) {
-                            return (PY_LONG_LONG) (((((((((PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0]));
-                        }
-                    }
-                    break;
-            }
-#endif
-#if CYTHON_COMPILING_IN_CPYTHON
-            if (unlikely(Py_SIZE(x) < 0)) {
-                goto raise_neg_overflow;
-            }
-#else
-            {
-                int result = PyObject_RichCompareBool(x, Py_False, Py_LT);
-                if (unlikely(result < 0))
-                    return (PY_LONG_LONG) -1;
-                if (unlikely(result == 1))
-                    goto raise_neg_overflow;
-            }
-#endif
-            if (sizeof(PY_LONG_LONG) <= sizeof(unsigned long)) {
-                __PYX_VERIFY_RETURN_INT_EXC(PY_LONG_LONG, unsigned long, PyLong_AsUnsignedLong(x))
-#ifdef HAVE_LONG_LONG
-            } else if (sizeof(PY_LONG_LONG) <= sizeof(unsigned PY_LONG_LONG)) {
-                __PYX_VERIFY_RETURN_INT_EXC(PY_LONG_LONG, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
-#endif
-            }
-        } else {
-#if CYTHON_USE_PYLONG_INTERNALS
-            const digit* digits = ((PyLongObject*)x)->ob_digit;
-            switch (Py_SIZE(x)) {
-                case  0: return (PY_LONG_LONG) 0;
-                case -1: __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, sdigit, (sdigit) (-(sdigit)digits[0]))
-                case  1: __PYX_VERIFY_RETURN_INT(PY_LONG_LONG,  digit, +digits[0])
-                case -2:
-                    if (8 * sizeof(PY_LONG_LONG) - 1 > 1 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
-                            return (PY_LONG_LONG) (((PY_LONG_LONG)-1)*(((((PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0])));
-                        }
-                    }
-                    break;
-                case 2:
-                    if (8 * sizeof(PY_LONG_LONG) > 1 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
-                            return (PY_LONG_LONG) ((((((PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0])));
-                        }
-                    }
-                    break;
-                case -3:
-                    if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
-                            return (PY_LONG_LONG) (((PY_LONG_LONG)-1)*(((((((PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0])));
-                        }
-                    }
-                    break;
-                case 3:
-                    if (8 * sizeof(PY_LONG_LONG) > 2 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
-                            return (PY_LONG_LONG) ((((((((PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0])));
-                        }
-                    }
-                    break;
-                case -4:
-                    if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
-                            return (PY_LONG_LONG) (((PY_LONG_LONG)-1)*(((((((((PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0])));
-                        }
-                    }
-                    break;
-                case 4:
-                    if (8 * sizeof(PY_LONG_LONG) > 3 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
-                            return (PY_LONG_LONG) ((((((((((PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0])));
-                        }
-                    }
-                    break;
-            }
-#endif
-            if (sizeof(PY_LONG_LONG) <= sizeof(long)) {
-                __PYX_VERIFY_RETURN_INT_EXC(PY_LONG_LONG, long, PyLong_AsLong(x))
-#ifdef HAVE_LONG_LONG
-            } else if (sizeof(PY_LONG_LONG) <= sizeof(PY_LONG_LONG)) {
-                __PYX_VERIFY_RETURN_INT_EXC(PY_LONG_LONG, PY_LONG_LONG, PyLong_AsLongLong(x))
-#endif
-            }
-        }
-        {
-#if CYTHON_COMPILING_IN_PYPY && !defined(_PyLong_AsByteArray)
-            PyErr_SetString(PyExc_RuntimeError,
-                            "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
-#else
-            PY_LONG_LONG val;
-            PyObject *v = __Pyx_PyNumber_IntOrLong(x);
- #if PY_MAJOR_VERSION < 3
-            if (likely(v) && !PyLong_Check(v)) {
-                PyObject *tmp = v;
-                v = PyNumber_Long(tmp);
-                Py_DECREF(tmp);
-            }
- #endif
-            if (likely(v)) {
-                int one = 1; int is_little = (int)*(unsigned char *)&one;
-                unsigned char *bytes = (unsigned char *)&val;
-                int ret = _PyLong_AsByteArray((PyLongObject *)v,
-                                              bytes, sizeof(val),
-                                              is_little, !is_unsigned);
-                Py_DECREF(v);
-                if (likely(!ret))
-                    return val;
-            }
-#endif
-            return (PY_LONG_LONG) -1;
-        }
-    } else {
-        PY_LONG_LONG val;
-        PyObject *tmp = __Pyx_PyNumber_IntOrLong(x);
-        if (!tmp) return (PY_LONG_LONG) -1;
-        val = __Pyx_PyInt_As_PY_LONG_LONG(tmp);
-        Py_DECREF(tmp);
-        return val;
-    }
-raise_overflow:
-    PyErr_SetString(PyExc_OverflowError,
-        "value too large to convert to PY_LONG_LONG");
-    return (PY_LONG_LONG) -1;
-raise_neg_overflow:
-    PyErr_SetString(PyExc_OverflowError,
-        "can't convert negative value to PY_LONG_LONG");
-    return (PY_LONG_LONG) -1;
-}
-
 /* CIntToPy */
           static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
     const long neg_one = (long) -1, const_zero = (long) 0;
@@ -25091,29 +24159,6 @@ raise_neg_overflow:
     retcode = __Pyx_ValidateAndInit_memviewslice(axes_specs, __Pyx_IS_C_CONTIG,
                                                  (PyBUF_C_CONTIGUOUS | PyBUF_FORMAT | PyBUF_WRITABLE), 1,
                                                  &__Pyx_TypeInfo_int, stack,
-                                                 &result, obj);
-    if (unlikely(retcode == -1))
-        goto __pyx_fail;
-    return result;
-__pyx_fail:
-    result.memview = NULL;
-    result.data = NULL;
-    return result;
-}
-
-/* ObjectToMemviewSlice */
-          static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_30py_inverted_multi_index_common_LONGLONG(PyObject *obj) {
-    __Pyx_memviewslice result = { 0, 0, { 0 }, { 0 }, { 0 } };
-    __Pyx_BufFmt_StackElem stack[1];
-    int axes_specs[] = { (__Pyx_MEMVIEW_DIRECT | __Pyx_MEMVIEW_CONTIG) };
-    int retcode;
-    if (obj == Py_None) {
-        result.memview = (struct __pyx_memoryview_obj *) Py_None;
-        return result;
-    }
-    retcode = __Pyx_ValidateAndInit_memviewslice(axes_specs, __Pyx_IS_C_CONTIG,
-                                                 (PyBUF_C_CONTIGUOUS | PyBUF_FORMAT | PyBUF_WRITABLE), 1,
-                                                 &__Pyx_TypeInfo_nn___pyx_t_30py_inverted_multi_index_common_LONGLONG, stack,
                                                  &result, obj);
     if (unlikely(retcode == -1))
         goto __pyx_fail;
