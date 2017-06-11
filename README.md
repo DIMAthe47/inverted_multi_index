@@ -1,4 +1,4 @@
-# image_processing
+# inverted_multi_index
 Set of modules with primary purpose to work with inverted multi-index.
 
 It includes:
