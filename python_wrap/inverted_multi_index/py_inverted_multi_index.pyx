@@ -16,6 +16,38 @@ cdef class PyInvertedMultiIndex:
         self.centroids_count_in_each_subspace=centroids_count_in_each_subspace
 
 cdef class PyInvertedMultiIndexBuilder:
+    # two versions of building index:
+    # 1) compute nearest_subspaced_indices separately (it can be done in stream processing style) and pass them to c++ method
+    # 2) pass vectors themselves to c++ method, where nearest nearest_subspaced_indices would be calculated through BLAS
+    def buildInvertedMultiIndex(self, IndexEntry[::1] x, int[:,::1] nearest_subspaced_indices, FLOAT[:,:,::1] subspacedCentroids):
+            cdef int x_len=len(x)
+            cdef int* X_centroid_indices=&nearest_subspaced_indices[0][0]
+            cdef int subspaces_count=subspacedCentroids.shape[0]
+            cdef int centroids_count_in_each_subspace=subspacedCentroids.shape[1]
+            # centroid_dim=subspacedCentroids.shape[2]
+
+            cdef cimi.InvertedMultiIndexBuilder[IndexEntry] imibuilder
+            cdef cimi.InvertedMultiIndex[IndexEntry]* c_inverted_multi_index = imibuilder.buildInvertedMultiIndex(&x[0], x_len, X_centroid_indices, subspaces_count, centroids_count_in_each_subspace)
+
+            cdef PyInvertedMultiIndex py_imi = c_to_py_imi(c_inverted_multi_index)
+            c_inverted_multi_index.manage_memory=False
+
+            return py_imi
+
+    def buildInvertedMultiIndexFromVectors(self, IndexEntry[::1] x, FLOAT[:,::1] xVectors, FLOAT[:,:,::1] subspacedCentroids):
+            cdef cimi.Vectors[FLOAT]* x_vectors_ = py_to_c_vectors(xVectors)
+            cdef cimi.SubspacedVectors[FLOAT]* subspaced_centroids_ = py_to_c_subspaced_vectors(subspacedCentroids)
+
+            cdef cimi.InvertedMultiIndexBuilder[IndexEntry] imibuilder
+            cdef cimi.InvertedMultiIndex[IndexEntry]* c_inverted_multi_index = imibuilder.buildInvertedMultiIndex(&x[0], deref(x_vectors_), deref(subspaced_centroids_))
+            del x_vectors_
+            del subspaced_centroids_
+
+            cdef PyInvertedMultiIndex py_imi = c_to_py_imi(c_inverted_multi_index)
+            c_inverted_multi_index.manage_memory=False
+
+            return py_imi
+
     def buildInvertedMultiIndex(self, IndexEntry[::1] x, FLOAT[:,::1] xVectors, FLOAT[:,:,::1] subspacedCentroids):
         cdef cimi.Vectors[FLOAT]* x_vectors_ = py_to_c_vectors(xVectors)
         cdef cimi.SubspacedVectors[FLOAT]* subspaced_centroids_ = py_to_c_subspaced_vectors(subspacedCentroids)
@@ -32,6 +64,7 @@ cdef class PyInvertedMultiIndexBuilder:
 
 cdef class PyInvertedMultiIndexSearcher:
     def __cinit__(self, PyInvertedMultiIndex py_imi, FLOAT[:,:,::1] subspaced_centroids):
+        self.subspaced_centroids=subspaced_centroids
         self.py_imi = py_imi
         cdef cimi.InvertedMultiIndex[IndexEntry]* c_imi = py_to_c_imi(py_imi)
         cdef cimi.SubspacedVectors[FLOAT]* c_subspaced_centroids = py_to_c_subspaced_vectors(subspaced_centroids)

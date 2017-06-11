@@ -22,3 +22,25 @@ TEST_CASE("find nearest indices by distances[3]", "[nearest][NearestIndicesSearc
     std::vector<int> right_answer_vector(right_answer, right_answer + sizeof(right_answer) / sizeof(int));
     REQUIRE(answer_vector == right_answer_vector);
 }
+
+TEST_CASE("find nearest indices matrix by distances[3]", "[nearest][NearestIndicesSearcher]") {
+
+    const int max_n_nearest = 3;
+    const NearestIndicesSearcher<float> nearestIndicesSearcher(max_n_nearest);
+
+    const float distances[] = {
+            1.2, 0, 5,
+            2, 1, 0
+
+    };
+
+    std::vector<int> nearest_indices(2 * 3, -1);
+    const int n_nearest = max_n_nearest;
+    nearestIndicesSearcher.findNearestIndices(distances, 3, 2, nearest_indices.data(), n_nearest);
+
+    std::vector<int> right_answer={
+            1,0,2,
+            2,1,0
+    };
+    REQUIRE(nearest_indices == right_answer);
+}

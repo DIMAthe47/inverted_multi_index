@@ -9,6 +9,7 @@
 #include "MultiSequenceAlgorithm.h"
 #include "../distance/SubspacesProductEuclideanDistanceComputer.h"
 #include "../search/SubspacesProductNearestIndicesSearcher.h"
+#include "../util/common_defs.h"
 
 template<class IndexEntry, typename FLOAT>
 class InvertedMultiIndexSearcher {
@@ -42,8 +43,15 @@ public:
     }
 
     void findNearest(const FLOAT *query_vector, IndexEntry *out_nearest_entries, const int nearest_entries_count) {
-        subspacesProductEuclideanDistanceComputer.computeDistances(query_vector,
-                                                                   subspacedCentroidsDistances->subspaced_vectors);
+#ifdef MY_DEBUG
+        printf("findNearest \n");
+        printf("computeDistances  \n");
+#endif
+        subspacesProductEuclideanDistanceComputer.computeSquaredDistances(query_vector,
+                                                                          subspacedCentroidsDistances->subspaced_vectors);
+#ifdef MY_DEBUG
+        printf("findNearestIndices  \n");
+#endif
         subspacesProductNearestIndicesSearcher.findNearestIndices(*subspacedCentroidsDistances,
                                                                   *subspacedNearestIndices);
 
@@ -54,6 +62,7 @@ public:
         printf("subspacedNearestIndices \n");
         print_array(subspacedNearestIndices->subspaced_vectors, subspacedNearestIndices->getTotalComponentsCount(),
                     "%d ", false);
+        printf("find_and_write_candidates  \n");
 #endif
 
         multiSequenceAlgorithm.find_and_write_candidates(subspacedCentroidsDistances->subspaced_vectors,

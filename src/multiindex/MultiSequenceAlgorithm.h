@@ -1,8 +1,6 @@
 #ifndef MULTISEQUENCEALGORITHM_H
 #define MULTISEQUENCEALGORITHM_H
 
-//#define MY_DEBUG
-
 #include "../util/array_utils.h"
 #include "../util/PriorityTuple.h"
 #include <queue>
@@ -13,6 +11,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <memory>
+#include "../util/common_defs.h"
 
 template<class T>
 class MultiSequenceAlgorithm {
@@ -120,8 +119,8 @@ public:
         printf("find_and_write_candidates: m:%d K:%d\n", m, K);
         printf("entries:\n");
         print_array(invertedMultiIndex->entries, invertedMultiIndex->entries_count, "%d ", false);
-        printf("entries_list_starts:\n");
-        print_array(invertedMultiIndex->entries_list_starts, invertedMultiIndex->entries_list_starts_len, "%d ", false);
+//        printf("entries_list_starts:\n");
+//        print_array(invertedMultiIndex->entries_list_starts, invertedMultiIndex->entries_list_starts_len, "%d ", false);
         printf("cluster_distance_matrix:\n");
         print_array(cluster_distance_matrix, m*K, "%f ", false);
         printf("nearest_cluster_index_matrix:\n");
@@ -141,12 +140,6 @@ public:
         }
         bool *visited = new bool[n_total_cells];
         memset(visited, false, sizeof(bool) * n_total_cells);
-
-#ifdef MY_DEBUG
-        printf("find_and_write_candidates: m:%d K:%d\n", m, K);
-        print_array(invertedMultiIndex->entries, invertedMultiIndex->entries_count, "%d ", false);
-        print_array(invertedMultiIndex->entries_list_starts, invertedMultiIndex->entries_list_starts_len, "%d ", false);
-#endif
 
         take_in_rows(nearest_cluster_index_matrix, K, start_cell_multiindex, _cluster_index_array.get(), m);
         take_in_rows(cluster_distance_matrix, K, _cluster_index_array.get(), _distances_array, m);

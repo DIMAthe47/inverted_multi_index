@@ -19,7 +19,7 @@ cdef class PyMultiIndexUtil:
         self.c_multi_index_util = new MultiIndexUtil[LONGLONG](n_dims, dim_size)
 
     def flat_index(self, cnp.ndarray multi_index):
-        multi_index = multi_index.astype(self.np.int32, copy=False)
+        multi_index = multi_index.astype(np.int32, copy=False)
         cdef int[::1] multi_index_view = multi_index
         cdef LONGLONG flatindex = self.c_multi_index_util.flat_index(&multi_index_view[0])
         return flatindex

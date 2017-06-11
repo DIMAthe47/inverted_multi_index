@@ -20,6 +20,15 @@ template<class IndexEntry>
 class InvertedMultiIndexBuilder {
 public:
 
+    /**
+     *
+     * @param x
+     * @param x_len
+     * @param X_centroid_indices - like ndarray[x_len, subspaces_count]
+     * @param subspaces_count
+     * @param centroids_count_in_each_subspace
+     * @return
+     */
     InvertedMultiIndex<IndexEntry>*
     buildInvertedMultiIndex(IndexEntry *x, int x_len, int *X_centroid_indices, int subspaces_count,
                             int centroids_count_in_each_subspace) {
@@ -90,8 +99,8 @@ public:
         for (int i = 0; i < xVectors.vectors_count; i++) {
             SubspacedVector<float> vector(xVectors.getPointerToVector(i), subspacedCentroids.subspaces_count,
                                           subspacedCentroids.subspace_vector_dim);
-            subspacesProductEuclideanDistanceComputer.computeDistances(vector,
-                                                                       *subspacedCentroidsDistances);
+            subspacesProductEuclideanDistanceComputer.computeSquaredDistances(vector,
+                                                                              *subspacedCentroidsDistances);
 
             int row_offset = i * subspacedCentroids.subspaces_count;
             nearestIndices.setSubspacedVectors(&X_centroid_indices[row_offset]);

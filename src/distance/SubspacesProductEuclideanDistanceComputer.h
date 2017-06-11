@@ -19,7 +19,7 @@ private:
     SubspacedVectors<FLOAT> subspacedVectors;
 public:
 
-    SubspacesProductEuclideanDistanceComputer(SubspacedVectors<FLOAT> &subspacedVectors) :
+    SubspacesProductEuclideanDistanceComputer(const SubspacedVectors<FLOAT> &subspacedVectors) :
             subspacedVectors(subspacedVectors) {
 
         subspaceEuclideanDistanceComputers.reserve(subspacedVectors.subspaces_count);
@@ -35,11 +35,11 @@ public:
      * @param query_vector - like ndarray[subspaces_count, subspace_vector_dim]
      * @param out_subspace_distances_arr - like ndarray[subspaces_count, base_vectors_count_in_each_subspace]
      */
-    void computeDistances(const FLOAT *query_vector, FLOAT *out_subspace_distances_arr) const {
+    void computeSquaredDistances(const FLOAT *query_vector, FLOAT *out_subspace_distances_arr) const {
         for (size_t i = 0; i < subspaceEuclideanDistanceComputers.size(); i++) {
             size_t subspace_query_from = i * subspacedVectors.subspace_vector_dim;
             size_t out_subspace_distances_arr_from = i * subspacedVectors.vectors_count_in_each_subspace;
-            subspaceEuclideanDistanceComputers[i].computeDistances(&query_vector[subspace_query_from],
+            subspaceEuclideanDistanceComputers[i].computeSquaredDistances(&query_vector[subspace_query_from],
                                                                    &out_subspace_distances_arr[out_subspace_distances_arr_from]);
         }
     }
@@ -49,10 +49,10 @@ public:
      * @param subspacedQueryVector - like ndarray[subspaces_count, subspace_vector_dim]
      * @param subspacedDistances - like ndarray[subspaces_count, base_vectors_count_in_each_subspace]
      */
-    void computeDistances(const SubspacedVector<FLOAT> &subspacedQueryVector,
-                          const SubspacedScalars<FLOAT> &subspacedDistances) const {
+    void computeSquaredDistances(const SubspacedVector<FLOAT> &subspacedQueryVector,
+                                 const SubspacedScalars<FLOAT> &subspacedDistances) const {
         for (size_t i = 0; i < subspaceEuclideanDistanceComputers.size(); i++) {
-            subspaceEuclideanDistanceComputers[i].computeDistances(subspacedQueryVector.getPointerToSubspace(i),
+            subspaceEuclideanDistanceComputers[i].computeSquaredDistances(subspacedQueryVector.getPointerToSubspace(i),
                                                                    subspacedDistances.getPointerToSubspace(i));
         }
     }

@@ -5,7 +5,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
 set(CMAKE_CXX_STANDARD 11)
 
-
 add_library(Catch INTERFACE)
 target_include_directories(Catch INTERFACE test/catch)
 
@@ -35,14 +34,11 @@ set(SOURCE_FILES
         src/search/NearestIndicesSearcher.h
         src/multiindex/InvertedMultiIndexBuilder.h src/util/SubspacedVectors.h
         src/util/SubspacedScalars.h
-        src/util/SubspacedVector.h src/util/Vectors.h)
+        src/util/SubspacedVector.h src/util/Vectors.h src/util/common_defs.h)
 
 add_library(invertedmultiindex STATIC ${SOURCE_FILES})
 set_target_properties(invertedmultiindex PROPERTIES LINKER_LANGUAGE CXX)
 target_link_libraries(invertedmultiindex openblas)
-
-#add_executable(tests-main test/tests-main.cpp)
-#target_link_libraries(tests-main Catch)
 
 add_executable(${PROJECT_NAME}-test
         "test/distance/tests-EuclideanDistanceComputer.cpp"
@@ -51,8 +47,9 @@ add_executable(${PROJECT_NAME}-test
         test/search/tests-SubspacesProductNearestIndicesSearcher.cpp
         test/multiindex/tests-InvertedMultiIndexBuilder.cpp
         test/multiindex/tests-MultiSequenceAlgorithm.cpp test/search/tests-InvertedMultiIndexSearcher.cpp
-        test/multiindex/tests-MultiIndexUtil.cpp)
-
+        test/multiindex/tests-MultiIndexUtil.cpp test/search/tests-glcm-issue.cpp
+        test/distance/tests-SymmetricDistanceComputer.cpp
+        test/distance/tests-AsymmetricDistanceComputer.cpp)
 
 
 #target_link_libraries(${PROJECT_NAME}-test "/opt/OpenBLAS/lib/libopenblas.so")
