@@ -15,4 +15,4 @@ which are used in nearest neighbor search with quantization approach.
 
 For Euclidean distances computatation OpenBlas library is used.
 
-There are also Cython wraps for major functionalities to work with in Python:
+There are also [Cython wraps](python_wrap) for major functionalities to work with in Python.
