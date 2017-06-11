@@ -13,6 +13,6 @@ There are also:
 
 which are used in nearest neighbor search with quantization approach.
 
-For Euclidean distances computatation OpenBlas library is used.
+For Euclidean distances computatation OpenBlas library is used. Setting up library location in CMakeLists.txt required.
 
 There are also [Cython wraps](python_wrap) for major functionalities to work with in Python.
